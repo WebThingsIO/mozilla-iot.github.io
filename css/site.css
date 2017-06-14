@@ -89,8 +89,8 @@ h2 {
 }
 
 header #wordmark {
-  height: 11rem;
-  margin: 2rem 4rem;
+  height: 8rem;
+  margin: 3.5rem 4rem;
 }
 
 header nav {
@@ -101,7 +101,7 @@ header nav {
 
 header nav a {
 	display: inline;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	line-height: 2rem;
 	color: #fff;
 	padding: 0 1rem;
