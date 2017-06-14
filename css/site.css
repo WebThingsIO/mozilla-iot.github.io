@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'Zilla Slab';
+    font-weight: 400;
+    font-style: normal;
+    src: url("/fonts/ZillaSlab-Regular.woff2") format("woff2"), url("/fonts/ZillaSlab-Regular.woff") format("woff")
+}
+@font-face {
+    font-family: 'Zilla Slab';
+    font-weight: 700;
+    font-style: normal;
+    src: url("/fonts/ZillaSlab-Bold.woff2") format("woff2"), url("/fonts/ZillaSlab-Bold.woff") format("woff")
+}
+@font-face {
+    font-family: 'Zilla Slab';
+    font-weight: 400;
+    font-style: italic;
+    src: url("/fonts/ZillaSlab-RegularItalic.woff2") format("woff2"), url("/fonts/ZillaSlab-RegularItalic.woff") format("woff")
+}
+@font-face {
+    font-family: 'Zilla Slab';
+    font-weight: 700;
+    font-style: italic;
+    src: url("/fonts/ZillaSlab-BoldItalic.woff2") format("woff2"), url("/fonts/ZillaSlab-BoldItalic.woff") format("woff")
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url("/fonts/opensans-regular.woff2") format("woff2"), url("/fonts/opensans-regular.woff") format("woff")
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-style: normal;
+    src: url("/fonts/opensans-bold.woff2") format("woff2"), url("/fonts/opensans-bold.woff") format("woff")
+}
+
+html {
+  font-size: 10px;
+  font-family: Open Sans, sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+header, footer {
+  background-color: #4a4a4a;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 15rem;
+}
+
+h1 {
+  margin: 0;
+  padding: 1rem;
+  font-size: 3rem;
+  font-family: "Zilla Slab", "Open Sans", sans-serif;
+}
+
+h2 {
+  margin: 0;
+  padding: 1rem;
+  font-size: 2rem;
+  font-family: "Zilla Slab", "Open Sans", sans-serif;
+}
+
+.button {
+  display: block;
+  background-color: #b6d806;
+  color: #4a4a4a;
+  text-transform: uppercase;
+  margin: 2rem auto;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: 600;
+  width: 20rem;
+}
+
+.button:hover, .button:active {
+  background-color: #d4f919;
+}
+
+header #wordmark {
+  height: 11rem;
+  margin: 2rem 4rem;
+}
+
+header nav {
+  float: right;
+  padding: 0;
+  margin: 6.5rem 4rem;
+}
+
+header nav a {
+	display: inline;
+	font-size: 1.6rem;
+	line-height: 2rem;
+	color: #fff;
+	padding: 0 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-left: solid 1px #fff;
+}
+
+header nav a:first-child {
+  border-left: none;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+section {
+  padding: 1rem;
+}
+
+section p {
+  font-size: 1.6rem;
+}
+
+footer {
+  font-size: 1.3rem;
+  text-align: center;
+  color: #fff;
+  padding: 1rem;
+  clear: both;
+}
+
+footer img {
+  height: 3.2rem;
+}
+
+footer ul {
+  padding: 0;
+  text-align: center;
+}
+
+footer li {
+  list-style-type: none;
+  display: inline;
+  padding: 1rem;
+}
+
+footer li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer li a:hover {
+  text-decoration: underline;
+}
+
+footer small {
+  font-size: 1rem;
+  display: block;
+  max-width: 40rem;
+  margin: 0 auto;
+  color: #ccc;
+}

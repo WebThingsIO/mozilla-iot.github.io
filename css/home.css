@@ -1,0 +1,71 @@
+#intro {
+  background-color: #5d9bc7;
+  text-align: center;
+  margin: 0;
+  color: #fff;
+}
+
+#illustration {
+  display: block;
+  width: 80rem;
+  margin: 2rem auto;
+}
+
+#gateway-section {
+  width: 50%;
+  box-sizing: border-box;
+  background-color: #fff;
+  float: left;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+#gateway-section h1 {
+  font-weight: normal;
+}
+
+#gateway-section img {
+  width: 40rem;
+  margin: 1rem;
+}
+
+#specification-section {
+  width: 50%;
+  box-sizing: border-box;
+  background-color: #4a4a4a;
+  float: left;
+  text-align: center;
+  color: #fff;
+}
+
+#specification-section img {
+  height: 26.6rem;
+  margin: 1rem;
+}
+
+#get-involved-section {
+  clear: both;
+  background-color: #5d9bc7;
+  text-align: center;
+  color: #fff;
+}
+
+#contributions {
+  width: 96rem;
+  margin: 0 auto;
+}
+
+.contribution {
+  width: 30rem;
+  float: left;
+  margin: 1rem;
+}
+
+.contribution img {
+  width: 19.2rem;
+  margin: 1rem;
+}
+
+#get-involved-section .button {
+  clear: both;
+}
