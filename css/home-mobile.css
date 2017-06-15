@@ -1,0 +1,32 @@
+#intro #illustration {
+  width: calc(100% - 2rem);
+}
+
+#gateway-section {
+  width: 100%;
+}
+
+#gateway-section img {
+  width: calc(100% - 2rem);
+}
+
+#specification-section {
+  clear: both;
+  width: 100%;
+}
+
+#specification-section img {
+  width: calc(100% - 2rem);
+  height: auto;
+}
+
+#contributions {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contribution {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1rem 0;
+}

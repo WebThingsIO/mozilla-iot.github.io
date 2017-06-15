@@ -1,0 +1,40 @@
+header #menu-button {
+  display: inline;
+  position: absolute;
+  right: 2rem;
+  top: 4.8rem;
+  width: 6.4rem;
+  height: 6.4rem;
+  background-image: url('/images/menu_icon.png');
+  background-size: 6.4rem;
+  background-repeat: no-repeat;
+}
+
+#main-menu {
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #585858;
+  padding-top: 5rem;
+}
+
+#main-menu.visible {
+  transform: translateX(0);
+}
+
+#main-menu a {
+  display: block;
+  font-size: 1.8rem;
+  padding: 2rem;
+  border: none;
+}
+
+#main-menu a:hover, #main-menu a:active, #main-menu a.selected {
+  background-color: #808080;
+  text-decoration: none;
+}

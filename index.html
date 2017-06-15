@@ -6,18 +6,29 @@
     <link rel="icon" href="images/icon.png" type="image/png" />
     <link rel="stylesheet" type="text/css" href="css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/home.css" />
+    <link rel="stylesheet" media="(max-width: 959px)" href="css/site-mobile.css" />
+    <link rel="stylesheet" media="(max-width: 959px)" href="css/home-mobile.css" />
+    <script src="/js/site.js"></script>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@mozilla" />
+    <meta property="og:title" content="Mozilla IoT" />
+    <meta property="og:description" content="Building the Web of Things" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://iot.mozilla.org" />
+    <meta property="og:image" content="/images/banner.png" />
   </head>
   <body>
     <header>
       <a href="/">
         <img id="wordmark" src="images/mozilla_iot_wordmark.png" alt="Mozilla IoT">
       </a>
-      <nav>
+      <nav id="main-menu" >
         <a href="/about">About</a>
         <a href="/gateway">Gateway</a>
         <a href="/specification">Specification</a>
         <a href="/contribute">Get Involved</a>
       </nav>
+      <a id="menu-button"></a>
     </header>
     <section id="intro">
       <h1>Building the Web of Things</h1>

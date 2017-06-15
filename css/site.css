@@ -89,8 +89,12 @@ h2 {
 }
 
 header #wordmark {
-  height: 8rem;
-  margin: 3.5rem 4rem;
+  height: 9rem;
+  margin: 2.5rem 4rem;
+}
+
+header #menu-button {
+  display: none;
 }
 
 header nav {
