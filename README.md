@@ -1,2 +1,2 @@
 # website
-MozIoT Website
+Mozilla IoT Website
