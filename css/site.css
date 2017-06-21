@@ -60,6 +60,7 @@ h1 {
   padding: 1rem;
   font-size: 3rem;
   font-family: "Zilla Slab", "Open Sans", sans-serif;
+  text-align: center;
 }
 
 h2 {
@@ -120,6 +121,10 @@ header nav a:first-child {
 
 header nav a:hover {
   text-decoration: underline;
+}
+
+header nav a.selected {
+  font-weight: bold;
 }
 
 section {
