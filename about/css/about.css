@@ -58,4 +58,9 @@ section p {
 
 #mozilla-iot a {
   color: #cee1ee;
+  text-decoration: none;
+}
+
+#mozilla-iot a:hover {
+  text-decoration: underline;
 }

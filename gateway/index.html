@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mozilla IoT - Gateway</title>
+    <link rel="icon" href="../images/icon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/site.css" />
+    <link rel="stylesheet" type="text/css" href="css/gateway.css" />
+    <link rel="stylesheet" media="(max-width: 959px)" href="../css/site-mobile.css" />
+    <link rel="stylesheet" media="(max-width: 959px)" href="css/gateway-mobile.css" />
+    <script src="/js/site.js"></script>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@mozilla" />
+    <meta property="og:title" content="Mozilla IoT" />
+    <meta property="og:description" content="Build your own Web of Things Gateway" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://iot.mozilla.org/gateway" />
+    <meta property="og:image" content="/images/banner.png" />
+  </head>
+  <body>
+    <header>
+      <a href="/">
+        <img id="wordmark" src="/images/mozilla_iot_wordmark.png" alt="Mozilla IoT">
+      </a>
+      <nav id="main-menu" >
+        <a href="/about">About</a>
+        <a href="/gateway" class="selected">Gateway</a>
+        <a href="https://mozilla-iot.github.io/wot/">Specification</a>
+        <a href="https://github.com/mozilla-iot">Get Involved</a>
+      </nav>
+      <a id="menu-button"></a>
+    </header>
+    <section id="intro">
+      <h1>Build Your Own Web of Things Gateway</h1>
+      <h2><strong>WoT</strong> Gateway</h2>
+      <img src="../images/raspberry_pi.png" />
+    </section>
+    <section id="instructions">
+      <div id="instructions-content">
+        <div id="instruction-1" class="instruction">
+          <h3>Raspberry Pi</h3>
+          <p><strong>Get your hands on a Raspberry Pi<sup>®</sup></strong> single board computer. The latest <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3</a> has WiFi and Bluetooth support built in, as well as access to GPIO ports for direct hardware connections. This is not essential as you can use alternative developer boards, or even your laptop or desktop computer, but it will currently provide the best experience. </p>
+          <img src="../images/raspberry_pi.png" />
+        </div>
+        <div id="instruction-2" class="instruction">
+          <h3>USB Dongles</h3>
+          <p><strong>To use your Web of Things gateway with other wireless protocols like ZigBee and Z-Wave you will need USB dongles.</strong> So far the gateway supports the <a href="https://www.digi.com/products/xbee-rf-solutions/boxed-rf-modems-adapters/xstick">Digi XStick</a> (ZB mesh version) for ZigBee and the <a href="http://aeotec.com/z-wave-usb-stick">Aeotec Z-Stick</a> (Gen5) for Z-Wave. Other Z-Wave dongles like <a href="https://www.z-wave.me">UZB</a> which use the Sigma Designs serial API are also likely to work out of the box.</p>
+          <img src="images/usb_dongle.png" />
+        </div>
+        <div id="instruction-3" class="instruction">
+          <h3>Flash SD Card</h3>
+          <p><strong>Download the pre-built Raspberry Pi OS image from Mozilla and flash it onto an SD card.</strong> Please note that this is experimental pre-release software and at this prototype stage is not ready for production use. It is intended as an early preview for hackers, makers and web developers to get their hands on with the Web of Things.<br /><a id="download-button" class="button" href="#">Download</a></p>
+          <img src="images/sd_card.png" />
+          <p>Alternatively, if you'd prefer to just try out the software on your PC you can follow the <a href="https://github.com/mozilla-iot/gateway/blob/master/README.md">instructions on GitHub</a> to checkout the code and build it yourself.</a>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>from the Emerging Technologies team at</p>
+      <a href="http://mozilla.org">
+        <img id="mozilla_wordmark" src="/images/mozilla_wordmark.png" alt="Mozilla" />
+      </a>
+      <ul>
+        <li><a href="https://www.mozilla.org/privacy/websites/">Privacy</a></li>
+        <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
+        <li><a href="mailto:moziot@mozilla.com">Contact</a></li>
+      </ul>
+      <small>Portions of this content are ©1998–2017 by individual mozilla.org contributors. Content available under a Creative Commons license. "Raspberry Pi" is a trademark of the Raspberry Pi Foundation. Mozilla is not affiliated with the Raspberry Pi Foundation.</small>
+    </footer>
+  </body>
+</html>

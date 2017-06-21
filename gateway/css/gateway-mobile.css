@@ -1,0 +1,24 @@
+#intro img {
+  width: calc(100% - 4rem);
+  max-width: 40rem;
+}
+
+#instructions {
+  width: 100%;
+  min-width: 32rem;
+}
+
+#instructions-content {
+  width: 100%;
+}
+
+.instruction p {
+  width: calc(100% - 8rem);
+}
+
+.instruction img {
+  width: calc(100% - 2rem);
+  display: block;
+  margin: 1rem auto;
+  max-width: 27rem;
+}
