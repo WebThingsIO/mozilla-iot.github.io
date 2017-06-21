@@ -6,6 +6,7 @@
 #instructions {
   width: 100%;
   min-width: 32rem;
+  box-sizing: border-box;
 }
 
 #instructions-content {
@@ -14,6 +15,7 @@
 
 .instruction p {
   width: calc(100% - 8rem);
+  min-width: 20rem;
 }
 
 .instruction img {
