@@ -70,6 +70,15 @@ h2 {
   font-family: "Zilla Slab", "Open Sans", sans-serif;
 }
 
+.by-mozilla {
+  display: block;
+  width: 100%;
+  text-align: right;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.3rem;
+  font-weight: normal;
+}
+
 .button {
   display: block;
   background-color: #b6d806;
@@ -144,7 +153,7 @@ footer {
 }
 
 footer img {
-  height: 3.2rem;
+  height: 3rem;
 }
 
 footer ul {

@@ -5,6 +5,10 @@
   color: #fff;
 }
 
+#intro h1 {
+  display: inline-block;
+}
+
 #illustration {
   display: block;
   width: 60rem;
@@ -22,6 +26,7 @@
 
 #gateway-section h1 {
   font-weight: normal;
+  display: inline-block;
 }
 
 #gateway-section img {
@@ -41,6 +46,7 @@
 #specification-section img {
   height: 26.6rem;
   margin: 1rem;
+  margin-top: 2.8rem;
 }
 
 #get-involved-section {

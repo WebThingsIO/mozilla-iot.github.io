@@ -10,6 +10,12 @@ section p {
 #intro {
   background-color: #5d9bc7;
   color: #fff;
+  text-align: center;
+}
+
+#intro h2 {
+  display: inline-block;
+  font-size: 2.6rem;
 }
 
 #intro img {

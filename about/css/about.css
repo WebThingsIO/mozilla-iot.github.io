@@ -48,6 +48,12 @@ section p {
 #mozilla-iot {
   background-color: #5d9bc7;
   color: #fff;
+  text-align: center;
+}
+
+#mozilla-iot h1 {
+  display: inline-block;
+  text-align: center;
 }
 
 #mozilla-iot img {
