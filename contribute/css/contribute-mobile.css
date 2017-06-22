@@ -1,0 +1,12 @@
+#intro img {
+  width: calc(100% - 2rem);
+  max-width: 70rem;
+}
+
+.column {
+  width: calc(100% - 2rem);
+  min-width: 30rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

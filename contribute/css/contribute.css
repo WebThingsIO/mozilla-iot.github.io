@@ -1,0 +1,46 @@
+#intro {
+  background-color: #5d9bc7;
+  color: #fff;
+  text-align: center;
+}
+
+#intro img {
+  width: 70rem;
+  margin: 3rem 1rem;
+}
+
+#contribute {
+  font-size: 1.5rem;
+  color: #4d4d4d;
+}
+
+.column {
+  width: 50%;
+  float: left;
+  text-align: left;
+  margin: 1rem auto;
+}
+
+.column p {
+  display: block;
+  max-width: 40rem;
+  margin: 1.5rem auto;
+}
+
+#contribute a {
+  color: #2c5aa0;
+  text-decoration: none;
+}
+
+#contribute a:hover {
+  text-decoration: underline;
+}
+
+#github {
+  text-align: center;
+}
+
+#github-icon {
+  width: 10rem;
+  margin: 1rem auto;
+}
