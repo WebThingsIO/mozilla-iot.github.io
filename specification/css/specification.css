@@ -1,0 +1,48 @@
+#intro {
+  background-color: #5d9bc7;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#intro img {
+  width: 49.3rem;
+  margin: 1rem;
+}
+
+#intro #spec-link {
+  display: block;
+  color: #cee1ee;
+  text-decoration: none;
+}
+
+#intro #spec-link:hover {
+  text-decoration: underline;
+}
+
+#specification {
+  font-size: 1.5rem;
+  color: #4d4d4d;
+}
+
+.column {
+  width: 50%;
+  float: left;
+  text-align: left;
+  margin: 1rem auto;
+}
+
+.column p {
+  display: block;
+  max-width: 40rem;
+  margin: 1.5rem auto;
+}
+
+#specification a {
+  color: #2c5aa0;
+  text-decoration: none;
+}
+
+#specification a:hover {
+  text-decoration: underline;
+}
