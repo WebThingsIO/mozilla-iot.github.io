@@ -92,3 +92,8 @@ a#download-button {
 a#download-button:hover {
   text-decoration: none;
 }
+
+#getting-started-guide {
+  display: block;
+  margin: 0 auto;
+}

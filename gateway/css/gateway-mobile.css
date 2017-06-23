@@ -24,3 +24,10 @@
   margin: 1rem auto;
   max-width: 27rem;
 }
+
+#getting-started-guide {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  max-width: 75rem;
+}
