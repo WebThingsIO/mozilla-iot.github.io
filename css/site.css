@@ -43,6 +43,7 @@ html {
 body {
   padding: 0;
   margin: 0;
+  background-color: #4a4a4a;
 }
 
 header, footer {
@@ -181,5 +182,9 @@ footer small {
   display: block;
   max-width: 40rem;
   margin: 0 auto;
+  color: #ccc;
+}
+
+footer small a {
   color: #ccc;
 }

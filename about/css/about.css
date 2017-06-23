@@ -35,6 +35,10 @@ section p {
   margin: 1rem auto;
 }
 
+#web-of-things {
+  background-color: #fff;
+}
+
 #web-of-things h1, #web-of-things p {
   color: #4d4d4d;
 }
