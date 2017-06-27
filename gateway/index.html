@@ -16,6 +16,25 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://iot.mozilla.org/gateway" />
     <meta property="og:image" content="/images/banner.png" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-101771223-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script>
+      /**
+      * Track clicks on outbound links (e.g. download).
+      */
+      var trackOutboundLink = function(url) {
+         ga('send', 'event', 'outbound', 'click', url, {
+           'transport': 'beacon',
+           'hitCallback': function(){document.location = url;}
+         });
+      }
+    </script>
   </head>
   <body>
     <header>
@@ -49,7 +68,11 @@
         </div>
         <div id="instruction-3" class="instruction">
           <h3>Flash SD Card</h3>
-          <p><strong>Download the pre-built Raspberry Pi OS image from Mozilla and <a href="https://www.raspberrypi.org/documentation/installation/installing-images/">flash it onto an SD card.</a></strong> Please note that this is experimental pre-release software and at this prototype stage is not ready for production use. It is intended as an early preview for hackers, makers and web developers to get their hands on with the Web of Things.<br /><a id="download-button" class="button" href="#">Download</a></p>
+          <!-- TODO: Set download link in href and onclick -->
+          <p>
+            <strong>Download the pre-built Raspberry Pi OS image from Mozilla and <a href="https://www.raspberrypi.org/documentation/installation/installing-images/">flash it onto an SD card.</a></strong> Please note that this is experimental pre-release software and at this prototype stage is not ready for production use. It is intended as an early preview for hackers, makers and web developers to get their hands on with the Web of Things.<br />
+            <a id="download-button" class="button" href="#" onclick="trackOutboundLink('http://iot.mozilla.org/download.zip'); return false;">Download</a>
+          </p>
           <img src="images/sd_card.png" alt="Illustration of an SD card" />
           <p>(Alternatively, if you'd prefer to just try out the software on your PC you can follow the <a href="https://github.com/mozilla-iot/gateway/blob/master/README.md">instructions on GitHub</a> to checkout the code and build it yourself.)</a></p>
           <p>Once you have successfully flashed the OS onto an SD card you can insert it into your Raspberry Pi and follow the <a href="https://docs.google.com/presentation/d/1urdIH-0vfXYauEW_gshCNyRzAwjcpSx79N_xXWopffI/pub?start=false&loop=false&delayms=3000">Getting Started Guide</a> below:</p>
