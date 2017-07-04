@@ -30,8 +30,9 @@
 }
 
 #gateway-section img {
+  display: block;
   width: 40rem;
-  margin: 1rem;
+  margin: 1rem auto;
 }
 
 #specification-section {
@@ -44,8 +45,9 @@
 }
 
 #specification-section img {
+  display: block;
   height: 26.6rem;
-  margin: 1rem;
+  margin: 1rem auto;
   margin-top: 2.8rem;
 }
 
