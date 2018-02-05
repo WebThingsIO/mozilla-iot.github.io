@@ -1,18 +1,36 @@
 #intro {
+  position: relative;
   background-color: #5d9bc7;
   text-align: center;
   margin: 0;
   color: #fff;
+  height: 40rem;
+  box-sizing: border-box;
+  background-color: #f6faff;
+  background-image: url('../images/hero_image.png');
+  background-position: center;
+  background-size: cover;
 }
 
 #intro h1 {
   display: inline-block;
+  color: #4a4a4a;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 5.5rem;
 }
 
-#illustration {
-  display: block;
-  width: 60rem;
-  margin: 2rem auto;
+#intro h1 .by-mozilla {
+  font-size: 1.8rem;
+}
+
+#about-button {
+  position: absolute;
+  bottom: 4rem;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 #gateway-section {
