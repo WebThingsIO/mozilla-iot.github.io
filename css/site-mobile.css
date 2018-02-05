@@ -8,6 +8,7 @@ header #menu-button {
   background-image: url('/images/menu_icon.png');
   background-size: 6.4rem;
   background-repeat: no-repeat;
+  z-index: 2;
 }
 
 #main-menu {
@@ -21,6 +22,7 @@ header #menu-button {
   height: 100%;
   background-color: #585858;
   padding-top: 5rem;
+  z-index: 1;
 }
 
 #main-menu.visible {
