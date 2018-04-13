@@ -6,19 +6,6 @@ section p {
   font-size: 1.5rem;
 }
 
-.column {
-  width: 50%;
-  float: right;
-  text-align: left;
-  margin: 1rem auto;
-}
-
-.column p {
-  display: block;
-  max-width: 40rem;
-  margin: 1.5rem auto;
-}
-
 .project-name {
   font-family: "Zilla Slab", "Open Sans", sans-serif;
   font-size: 1.8rem;

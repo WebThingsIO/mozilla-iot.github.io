@@ -10,12 +10,12 @@
   width: calc(100% - 2rem);
 }
 
-#specification-section {
+#framework-section {
   clear: both;
   width: 100%;
 }
 
-#specification-section img {
+#framework-section img {
   width: calc(100% - 2rem);
   height: auto;
 }
