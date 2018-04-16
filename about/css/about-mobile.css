@@ -1,9 +1,3 @@
-
-
-.column {
-  width: 100%;
-}
-
 #internet-of-things img, #web-of-things img, #mozilla-iot img {
   width: calc(100% - 2rem);
 }

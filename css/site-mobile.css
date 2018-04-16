@@ -40,3 +40,7 @@ header #menu-button {
   background-color: #808080;
   text-decoration: none;
 }
+
+.column {
+  width: 100%;
+}

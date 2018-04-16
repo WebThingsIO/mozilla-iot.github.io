@@ -53,7 +53,7 @@
   margin: 1rem auto;
 }
 
-#specification-section {
+#framework-section {
   width: 50%;
   box-sizing: border-box;
   background-color: #4a4a4a;
@@ -62,9 +62,14 @@
   color: #fff;
 }
 
-#specification-section img {
+#framework-section h1 {
+  font-weight: normal;
+  display: inline-block;
+}
+
+#framework-section img {
   display: block;
-  height: 26.6rem;
+  height: 24.5rem;
   margin: 1rem auto;
   margin-top: 2.8rem;
 }
