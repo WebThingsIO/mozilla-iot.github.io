@@ -8,6 +8,7 @@
 #things-framework-intro h2 {
   display: inline-block;
   font-size: 2.6rem;
+  font-weight: normal;
 }
 
 #things-framework-intro p {
@@ -50,83 +51,49 @@
 }
 
 .tabs {
-  position: relative;
-  display: block;
-  height: 44rem;
-  margin: 0 auto 2rem 0;
-}
-
-#installation .tabs {
-  height: 29rem;
-}
-
-.tabs section {
-  position: absolute;
-  display: block;
-  top: 4rem;
-  left: 0;
-  width: 100%;
-  height: 40rem;
-  box-sizing: border-box;
-  padding: 1rem 2rem;
-  background-color: #eee;
-  z-index: 0;
-}
-
-#installation .tabs section {
-  height: 25rem;
-}
-
-.tabs section:first-child {
-  z-index: 1;
-}
-
-.tabs section h3 {
-  font-family: sans-serif;
-  position: absolute;
-  font-size: 1.5rem;
-  font-weight: normal;
-  width: 10rem;
-  height: 4rem;
-  top: -4rem;
-  left: 0;
-  padding: 0;
   margin: 0;
-  color: #000;
-  background-color: #eee;
+  padding: 0;
 }
 
-.tabs section:nth-child(2) h3 {
-  left: 11rem;
+.tabs li {
+  list-style-type: none;
+  display: inline-block;
 }
 
-.tabs section:nth-child(3) h3 {
-  left: 22rem;
-}
-
-.tabs section:nth-child(4) h3 {
-  left: 33rem;
-}
-
-.tabs section h3 a {
-  display: block;
-  width: 100%;
-  line-height: 4rem;
-  text-align: center;
+.tabs a {
+  display: inline-block;
+  background-color: transparent;
+  height: 3rem;
+  line-height: 3rem;
   text-decoration: none;
   color: #000;
-  outline: 0 none;
+  padding: 0.5rem 1rem;
 }
 
-.tabs section:target,
-.tabs section:target h3 {
-  color: #000;
+.tabs a.selected {
   background-color: #ccc;
-  z-index: 2;
+}
+
+.tab-sections {
+  padding: 0 2rem 0 0;
+}
+
+.tab-sections section {
+  display: none;
+  background-color: #ccc;
+  padding: 1rem 2rem;
+}
+
+.tab-sections section.selected {
+  display: block;
+}
+
+section h2 {
+  padding-left: 0;
 }
 
 pre {
-  max-height: 35rem;
+  max-height: 50rem;
   overflow: scroll;
   background-color: #4a4a4a;
   color: #fff;
@@ -135,12 +102,12 @@ pre {
   box-sizing: border-box;
 }
 
-#installation pre {
-  max-height: 25rem;
-}
-
 #libraries {
   text-align: center;
+}
+
+#libraries h2 {
+  text-align: left;
 }
 
 .library {

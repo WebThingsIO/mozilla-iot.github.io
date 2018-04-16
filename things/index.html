@@ -19,6 +19,7 @@
     <script src="/js/site.js"></script>
     <script src="/js/analytics.js"></script>
     <script src="js/prism.js"></script>
+    <script src="js/tabs.js"></script>
     <script>
       /**
       * Track clicks on outbound links (e.g. download).
@@ -62,43 +63,56 @@
     <section id="things-framework">
       <div id="things-framework-content">
 
-        <h2>Installation</h2>
         <section id="installation">
-          <div class="tabs">
-            <section id="installation-node">
-              <h3><a href="#installation-node">NodeJS</a></h3>
-              <p>For NodeJS you can install using npm.
-                <pre>$ npm install webthing</pre>
+          <h2>Installation</h2>
+          <ul id="installation-tabs" class="tabs">
+            <li><a id="installation-tab-node" class="selected" href="#installation-node" data-section="installation-node">NodeJS</a></li>
+            <li><a id="installation-tab-python" href="#installation-python" data-section="installation-python">Python</a></li>
+            <li><a id="installation-tab-java" href="#installation-java" data-section="installation-java">Java</a></li>
+          </ul>
+          <div class="tab-sections">
+            <section class="selected" id="installation-node">
+              <p>
+                <pre><code class="language-bash">$ npm install webthing</code></pre>
               </p>
             </section>
             <section id="installation-python">
-              <h3><a href="#installation-python">Python</a></h3>
-              <p>For Python you can install using pip.
-                <pre>$ pip install webthing</pre>
+              <p>
+                <pre><code class="language-bash">$ pip install webthing</code></pre>
               </p>
             </section>
             <section id="installation-java">
-              <h3><a href="#installation-java">Java</a></h3>
-              <p>For Java, add the following to your Gradle configuration.
-<pre>
-  &lt;dependencies&gt;
+              <p>Maven:
+<pre><code class="language-markup">&lt;dependencies&gt;
       &lt;dependency&gt;
           &lt;groupId&gt;org.mozilla.iot&lt;/groupId&gt;
           &lt;artifactId&gt;webthing&lt;/artifactId&gt;
           &lt;version&gt;CURRENT_VERSION&lt;/version&gt;
       &lt;/dependency&gt;
   &lt;/dependencies&gt;
-</pre>
+</code></pre>
+              </p>
+              <p>Gradle:
+<pre><code class="language-json">dependencies {
+    runtime(
+        [group: 'org.mozilla.iot', name: 'webthing', version: 'CURRENT_VERSION'],
+    )
+}</code></pre>
               </p>
             </section>
           </div>
         </section>
 
-        <h2>Example</h2>
         <section id="example">
-          <div class="tabs">
-            <section id="example-node">
-              <h3><a href="#example-node">NodeJS</a></h3>
+          <h2>Example</h2>
+          <ul id="example-tabs" class="tabs">
+            <li><a id="example-tab-node" class="selected" href="#example-node" data-section="example-node">NodeJS</a></li>
+            <li><a id="example-tab-python" href="#example-python" data-section="example-python">Python</a></li>
+            <li><a id="example-tab-java" href="#example-java" data-section="example-java">Java</a></li>
+            <li><a id="example-tab-esp8266" href="#example-esp8266" data-section="example-esp8266">ESP8266</a></li>
+          </ul>
+          <div class="tab-sections">
+            <section class="selected" id="example-node">
               <p>
                 <pre><code class="language-javascript">const {
   Action,
@@ -107,7 +121,7 @@
   Thing,
   Value,
   WebThingServer,
-} = require('../index');
+} = require('webthing');
 const uuidv4 = require('uuid/v4');
 
 class OverheatedEvent extends Event {
@@ -199,7 +213,6 @@ runServer();
               </p>
             </section>
             <section id="example-python">
-              <h3><a href="#example-python">Python</a></h3>
               <p>
 <pre><code class="language-python">import time
 import uuid
@@ -297,7 +310,6 @@ if __name__ == '__main__':
               </p>
             </section>
             <section id="example-java">
-              <h3><a href="#example-java">Java</a></h3>
               <p>
 <pre><code class="language-java">package org.mozilla.iot.webthing.example;
 
@@ -419,54 +431,68 @@ public class SingleThing {
               </p>
             </section>
             <section id="example-esp8266">
-              <h3><a href="#example-esp8266">ESP8266</a></h3>
               <p>
-<pre><code class="language-cpp">#include <Thing.h>
-#include <WebThingAdapter.h>
+<pre><code class="language-cpp">#include &lt;ESP8266WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+#include &lt;Thing.h&gt;
+#include &lt;WebThingAdapter.h&gt;
 
-WebThingAdapter adapter("localtoast");
+const char* ssid = "......";
+const char* password = "..........";
 
-ThingDevice toaster("toaster-1", "My Toaster", "toaster");
+const int lampPin = LED_BUILTIN;
 
-ThingProperty toasterOn("on", "Toasting", BOOLEAN);
-ThingProperty toasterTimer("timer", "Time left in toast", NUMBER);
-ThingProperty toasterToast("toast", "Toast requested", BOOLEAN);
+WebThingAdapter adapter("esp8266");
 
-ToasterInterface toasterInterface;
+ThingDevice lamp("lamp", "My Lamp", "dimmableLight");
 
-void setup() {
-  toaster.addProperty(&amp;toasterOn);
-  toaster.addProperty(&amp;toasterTimer);
-  toaster.addProperty(&amp;toasterToast);
+ThingProperty lampOn("on", "Whether the lamp is turned on", BOOLEAN);
+ThingProperty lampLevel("level", "The level of light from 0-100", NUMBER);
 
-  adapter.addDevice(&amp;toaster);
+void setup(void){
+  pinMode(lampPin, OUTPUT);
+  digitalWrite(lampPin, HIGH);
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  lamp.addProperty(&amp;lampOn);
+  lamp.addProperty(&amp;lampLevel);
+  adapter.addDevice(&amp;lamp);
+  adapter.begin();
+  Serial.println("HTTP server started");
+
+  analogWriteRange(255);
 }
 
-void loop() {
+void loop(void){
   adapter.update();
-
-  ThingPropertyValue onValue;
-  onValue.boolean = toasterInterface.isToasting();
-  toasterOn.setValue(onValue);
-
-  ThingPropertyValue timerValue;
-  timerValue.number = toasterInterface.getSecondsLeft();
-  toasterTimer.setValue(timerValue);
-
-  if (toasterToast.getValue().boolean) {
-    ThingPropertyValue toastValue;
-    toastValue.boolean = false;
-    toasterToast.setValue(toastValue);
-    toasterInterface.startToasting();
+  if (lampOn.getValue().boolean) {
+    int level = map(lampLevel.getValue().number, 0, 100, 255, 0);
+    analogWrite(lampPin, level);
   }
-}</code></pre>
+}
+</code></pre>
               </p>
             </section>
           </div>
         </section>
 
-        <h2>Find Out More</h2>
-        <div id="libraries">
+        <section id="libraries">
+          <h2>Find Out More</h2>
           <div class="library">
             <h3>webthing-node</h3>
             <img src="../contribute/images/github.png" />
@@ -487,7 +513,7 @@ void loop() {
             <img src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-esp8266">Learn More</a>
           </div>
-        </div>
+        </section>
       </div>
     </section>
     <footer>
