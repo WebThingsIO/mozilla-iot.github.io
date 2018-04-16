@@ -170,6 +170,10 @@ function makeThing() {
     {description: 'Fade the lamp to a given level',
      input: {
        type: 'object',
+       required: [
+         'level',
+         'duration',
+       ],
        properties: {
          level: {
            type: 'number',
@@ -268,6 +272,10 @@ def make_thing():
         {'description': 'Fade the lamp to a given level',
          'input': {
              'type': 'object',
+             'required': [
+                 'level',
+                 'duration',
+             ],
              'properties': {
                  'level': {
                      'type': 'number',
@@ -306,7 +314,6 @@ def run_server():
 
 if __name__ == '__main__':
     run_server()
-
 </code></pre>
               </p>
             </section>
@@ -356,6 +363,7 @@ public class SingleThing {
         Map<String, Object> fadeDuration = new HashMap&lt;&gt;>();
         fadeMetadata.put("description", "Fade the lamp to a given level");
         fadeInput.put("type", "object");
+        fadeInput.put("required", new String[]{"level", "duration"});
         fadeLevel.put("type", "number");
         fadeLevel.put("minimum", 0);
         fadeLevel.put("maximum", 100);
