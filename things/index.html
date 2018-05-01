@@ -88,7 +88,7 @@
     &lt;dependency&gt;
         &lt;groupId&gt;org.mozilla.iot&lt;/groupId&gt;
         &lt;artifactId&gt;webthing&lt;/artifactId&gt;
-        &lt;version&gt;CURRENT_VERSION&lt;/version&gt;
+        &lt;version&gt;LATEST&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
 </code></pre>
@@ -96,7 +96,7 @@
               <p>Gradle:
 <pre><code class="language-json">dependencies {
     runtime(
-        [group: 'org.mozilla.iot', name: 'webthing', version: 'CURRENT_VERSION'],
+        [group: 'org.mozilla.iot', name: 'webthing', version: 'LATEST'],
     )
 }</code></pre>
               </p>
@@ -148,7 +148,7 @@ class FadeAction extends Action {
 }
 
 function makeThing() {
-  const thing = new Thing('My Lamp', 'thing', 'A web connected lamp');
+  const thing = new Thing('My Lamp', 'dimmableLight', 'A web connected lamp');
 
   thing.addProperty(
     new Property(thing,
@@ -219,10 +219,10 @@ runServer();
             </section>
             <section id="example-python">
               <p>
-<pre><code class="language-python">import time
+<pre><code class="language-python">from webthing import Action, Event, Property, Thing, Value, WebThingServer
+import logging
+import time
 import uuid
-
-from webthing import Action, Event, Property, Thing, Value, WebThingServer
 
 
 class OverheatedEvent(Event):
@@ -243,7 +243,7 @@ class FadeAction(Action):
 
 
 def make_thing():
-    thing = Thing(name='My Lamp', description='A web connected lamp')
+    thing = Thing('My Lamp', 'dimmableLight', 'A web connected lamp')
 
     def noop(_):
         pass
@@ -307,12 +307,19 @@ def run_server():
     # In the single thing case, the thing's name will be broadcast.
     server = WebThingServer([thing], port=8888)
     try:
+        logging.info('starting the server')
         server.start()
     except KeyboardInterrupt:
+        logging.info('stopping the server')
         server.stop()
+        logging.info('done')
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        level=10,
+        format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
+    )
     run_server()
 </code></pre>
               </p>
@@ -338,7 +345,8 @@ import java.util.UUID;
 
 public class SingleThing {
     public static Thing makeThing() {
-        Thing thing = new Thing("My Lamp", "thing", "A web connected lamp");
+        Thing thing =
+                new Thing("My Lamp", "dimmableLight", "A web connected lamp");
 
         Map<String, Object> onDescription = new HashMap&lt;&gt;();
         onDescription.put("type", "boolean");
