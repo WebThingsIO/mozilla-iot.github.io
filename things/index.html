@@ -70,6 +70,7 @@
             <li><a id="installation-tab-node" class="selected" href="#installation-node" data-section="installation-node">NodeJS</a></li>
             <li><a id="installation-tab-python" href="#installation-python" data-section="installation-python">Python</a></li>
             <li><a id="installation-tab-java" href="#installation-java" data-section="installation-java">Java</a></li>
+            <li><a id="installation-tab-rust" href="#installation-rust" data-section="installation-rust">Rust</a></li>
           </ul>
           <div class="tab-sections">
             <section class="selected" id="installation-node">
@@ -88,7 +89,7 @@
     &lt;dependency&gt;
         &lt;groupId&gt;org.mozilla.iot&lt;/groupId&gt;
         &lt;artifactId&gt;webthing&lt;/artifactId&gt;
-        &lt;version&gt;CURRENT_VERSION&lt;/version&gt;
+        &lt;version&gt;LATEST&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
 </code></pre>
@@ -96,9 +97,15 @@
               <p>Gradle:
 <pre><code class="language-json">dependencies {
     runtime(
-        [group: 'org.mozilla.iot', name: 'webthing', version: 'CURRENT_VERSION'],
+        [group: 'org.mozilla.iot', name: 'webthing', version: 'LATEST'],
     )
 }</code></pre>
+              </p>
+            </section>
+            <section id="installation-rust">
+              <p>Cargo:
+<pre><code class="language-toml">[dependencies]
+webthing = { git = "https://github.com/mozilla-iot/webthing-rust" }</code></pre>
               </p>
             </section>
           </div>
@@ -110,6 +117,7 @@
             <li><a id="example-tab-node" class="selected" href="#example-node" data-section="example-node">NodeJS</a></li>
             <li><a id="example-tab-python" href="#example-python" data-section="example-python">Python</a></li>
             <li><a id="example-tab-java" href="#example-java" data-section="example-java">Java</a></li>
+            <li><a id="example-tab-rust" href="#example-rust" data-section="example-rust">Rust</a></li>
             <li><a id="example-tab-esp8266" href="#example-esp8266" data-section="example-esp8266">ESP8266</a></li>
           </ul>
           <div class="tab-sections">
@@ -137,8 +145,8 @@ class FadeAction extends Action {
   }
 
   performAction() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
+    return new Promise((resolve) =&gt; {
+      setTimeout(() =&gt; {
         this.thing.setProperty('level', this.input.level);
         this.thing.addEvent(new OverheatedEvent(this.thing, 102));
         resolve();
@@ -148,51 +156,59 @@ class FadeAction extends Action {
 }
 
 function makeThing() {
-  const thing = new Thing('My Lamp', 'thing', 'A web connected lamp');
+  const thing = new Thing('My Lamp', 'dimmableLight', 'A web connected lamp');
 
   thing.addProperty(
     new Property(thing,
                  'on',
-                 new Value(true, () => {}),
-                 {type: 'boolean',
-                  description: 'Whether the lamp is turned on'}));
+                 new Value(true, () =&gt; {}),
+                 {
+                   type: 'boolean',
+                   description: 'Whether the lamp is turned on',
+                 }));
   thing.addProperty(
     new Property(thing,
                  'level',
-                 new Value(50, () => {}),
-                 {type: 'number',
-                  description: 'The level of light from 0-100',
-                  minimum: 0,
-                  maximum: 100}));
+                 new Value(50, () =&gt; {}),
+                 {
+                   type: 'number',
+                   description: 'The level of light from 0-100',
+                   minimum: 0,
+                   maximum: 100,
+                 }));
 
   thing.addAvailableAction(
     'fade',
-    {description: 'Fade the lamp to a given level',
-     input: {
-       type: 'object',
-       required: [
-         'level',
-         'duration',
-       ],
-       properties: {
-         level: {
-           type: 'number',
-           minimum: 0,
-           maximum: 100,
-         },
-         duration: {
-           type: 'number',
-           unit: 'milliseconds',
-         },
-       },
-     }},
+    {
+      description: 'Fade the lamp to a given level',
+      input: {
+        type: 'object',
+        required: [
+          'level',
+          'duration',
+        ],
+        properties: {
+          level: {
+            type: 'number',
+            minimum: 0,
+            maximum: 100,
+          },
+          duration: {
+            type: 'number',
+            unit: 'milliseconds',
+          },
+        },
+      },
+    },
     FadeAction);
 
   thing.addAvailableEvent(
     'overheated',
-    {description: 'The lamp has exceeded its safe operating temperature',
-     type: 'number',
-     unit: 'celsius'});
+    {
+      description: 'The lamp has exceeded its safe operating temperature',
+      type: 'number',
+      unit: 'celsius',
+    });
 
   return thing;
 }
@@ -205,7 +221,7 @@ function runServer() {
   // In the single thing case, the thing's name will be broadcast.
   const server = new WebThingServer([thing], null, 8888);
 
-  process.on('SIGINT', () => {
+  process.on('SIGINT', () =&gt; {
     server.stop();
     process.exit();
   });
@@ -219,10 +235,10 @@ runServer();
             </section>
             <section id="example-python">
               <p>
-<pre><code class="language-python">import time
+<pre><code class="language-python">from webthing import Action, Event, Property, Thing, Value, WebThingServer
+import logging
+import time
 import uuid
-
-from webthing import Action, Event, Property, Thing, Value, WebThingServer
 
 
 class OverheatedEvent(Event):
@@ -243,7 +259,7 @@ class FadeAction(Action):
 
 
 def make_thing():
-    thing = Thing(name='My Lamp', description='A web connected lamp')
+    thing = Thing('My Lamp', 'dimmableLight', 'A web connected lamp')
 
     def noop(_):
         pass
@@ -307,12 +323,19 @@ def run_server():
     # In the single thing case, the thing's name will be broadcast.
     server = WebThingServer([thing], port=8888)
     try:
+        logging.info('starting the server')
         server.start()
     except KeyboardInterrupt:
+        logging.info('stopping the server')
         server.stop()
+        logging.info('done')
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        level=10,
+        format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
+    )
     run_server()
 </code></pre>
               </p>
@@ -338,29 +361,30 @@ import java.util.UUID;
 
 public class SingleThing {
     public static Thing makeThing() {
-        Thing thing = new Thing("My Lamp", "thing", "A web connected lamp");
+        Thing thing =
+                new Thing("My Lamp", "dimmableLight", "A web connected lamp");
 
-        Map<String, Object> onDescription = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; onDescription = new HashMap&lt;&gt;();
         onDescription.put("type", "boolean");
         onDescription.put("description", "Whether the lamp is turned on");
         // noop for state change
-        thing.addProperty(new Property(thing, "on", new Value(true, on -> {
+        thing.addProperty(new Property(thing, "on", new Value(true, on -&gt; {
         }), onDescription));
 
-        Map<String, Object> levelDescription = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; levelDescription = new HashMap&lt;&gt;();
         levelDescription.put("type", "number");
         levelDescription.put("description", "The level of light from 0-100");
         levelDescription.put("minimum", 0);
         levelDescription.put("maximum", 100);
         // noop consumer for level
-        thing.addProperty(new Property(thing, "level", new Value(50, level -> {
+        thing.addProperty(new Property(thing, "level", new Value(50, level -&gt; {
         }), levelDescription));
 
-        Map<String, Object> fadeMetadata = new HashMap&lt;&gt;();
-        Map<String, Object> fadeInput = new HashMap&lt;&gt;();
-        Map<String, Object> fadeProperties = new HashMap&lt;&gt;();
-        Map<String, Object> fadeLevel = new HashMap&lt;&gt;>();
-        Map<String, Object> fadeDuration = new HashMap&lt;&gt;>();
+        Map&lt;String, Object&gt; fadeMetadata = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; fadeInput = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; fadeProperties = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; fadeLevel = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; fadeDuration = new HashMap&lt;&gt;();
         fadeMetadata.put("description", "Fade the lamp to a given level");
         fadeInput.put("type", "object");
         fadeInput.put("required", new String[]{"level", "duration"});
@@ -375,7 +399,7 @@ public class SingleThing {
         fadeMetadata.put("input", fadeInput);
         thing.addAvailableAction("fade", fadeMetadata, FadeAction.class);
 
-        Map<String, Object> overheatedMetadata = new HashMap&lt;&gt;>();
+        Map&lt;String, Object&gt; overheatedMetadata = new HashMap&lt;&gt;();
         overheatedMetadata.put("description",
                                "The lamp has exceeded its safe operating temperature");
         overheatedMetadata.put("type", "number");
@@ -390,7 +414,7 @@ public class SingleThing {
         WebThingServer server;
 
         try {
-            List<Thing> things = new ArrayList&lt;&gt;();
+            List&lt;Thing&gt; things = new ArrayList&lt;&gt;();
             things.add(thing);
 
             // If adding more than one thing here, be sure to set the second
@@ -435,6 +459,255 @@ public class SingleThing {
             thing.addEvent(new OverheatedEvent(thing, 102));
         }
     }
+}
+</code></pre>
+              </p>
+            </section>
+            <section id="example-rust">
+              <p>
+<pre><code class="language-rust">extern crate env_logger;
+#[macro_use]
+extern crate serde_json;
+extern crate uuid;
+extern crate webthing;
+
+use std::{thread, time};
+use std::sync::{Arc, RwLock, Weak};
+use uuid::Uuid;
+use webthing::{Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing,
+               WebThingServer};
+use webthing::property::ValueForwarder;
+use webthing::server::ActionGenerator;
+
+pub struct OverheatedEvent(BaseEvent);
+
+impl OverheatedEvent {
+    fn new(data: Option&lt;serde_json::Value&gt;) -&gt; OverheatedEvent {
+        OverheatedEvent(BaseEvent::new("overheated".to_owned(), data))
+    }
+}
+
+impl Event for OverheatedEvent {
+    fn get_name(&amp;self) -&gt; String {
+        self.0.get_name()
+    }
+
+    fn get_data(&amp;self) -&gt; Option&lt;serde_json::Value&gt; {
+        self.0.get_data()
+    }
+
+    fn get_time(&amp;self) -&gt; String {
+        self.0.get_time()
+    }
+}
+
+pub struct FadeAction(BaseAction);
+
+impl FadeAction {
+    fn new(
+        input: Option&lt;serde_json::Map&lt;String, serde_json::Value&gt;&gt;,
+        thing: Weak&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;,
+    ) -&gt; FadeAction {
+        FadeAction(BaseAction::new(
+            Uuid::new_v4().to_string(),
+            "fade".to_owned(),
+            input,
+            thing,
+        ))
+    }
+}
+
+impl Action for FadeAction {
+    fn set_href_prefix(&amp;mut self, prefix: String) {
+        self.0.set_href_prefix(prefix)
+    }
+
+    fn get_id(&amp;self) -&gt; String {
+        self.0.get_id()
+    }
+
+    fn get_name(&amp;self) -&gt; String {
+        self.0.get_name()
+    }
+
+    fn get_href(&amp;self) -&gt; String {
+        self.0.get_href()
+    }
+
+    fn get_status(&amp;self) -&gt; String {
+        self.0.get_status()
+    }
+
+    fn get_time_requested(&amp;self) -&gt; String {
+        self.0.get_time_requested()
+    }
+
+    fn get_time_completed(&amp;self) -&gt; Option&lt;String&gt; {
+        self.0.get_time_completed()
+    }
+
+    fn get_input(&amp;self) -&gt; Option&lt;serde_json::Map&lt;String, serde_json::Value&gt;&gt; {
+        self.0.get_input()
+    }
+
+    fn get_thing(&amp;self) -&gt; Option&lt;Arc&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;&gt; {
+        self.0.get_thing()
+    }
+
+    fn set_status(&amp;mut self, status: String) {
+        self.0.set_status(status)
+    }
+
+    fn start(&amp;mut self) {
+        self.0.start()
+    }
+
+    fn perform_action(&amp;mut self) {
+        let thing = self.get_thing();
+        if thing.is_none() {
+            return;
+        }
+
+        let thing = thing.unwrap();
+        let input = self.get_input().unwrap().clone();
+        let name = self.get_name();
+        let id = self.get_id();
+
+        thread::spawn(move || {
+            thread::sleep(time::Duration::from_millis(
+                input.get("duration").unwrap().as_u64().unwrap(),
+            ));
+
+            let thing = thing.clone();
+            let mut thing = thing.write().unwrap();
+            let _ = thing.set_property("level".to_owned(), input.get("level").unwrap().clone());
+            thing.add_event(Box::new(OverheatedEvent::new(Some(json!(102)))));
+
+            thing.finish_action(name, id);
+        });
+    }
+
+    fn cancel(&amp;mut self) {
+        self.0.cancel()
+    }
+
+    fn finish(&amp;mut self) {
+        self.0.finish()
+    }
+}
+
+struct Generator;
+
+impl ActionGenerator for Generator {
+    fn generate(
+        &amp;self,
+        thing: Weak&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;,
+        name: String,
+        input: Option&lt;&amp;serde_json::Value&gt;,
+    ) -&gt; Option&lt;Box&lt;Action&gt;&gt; {
+        let input = match input {
+            Some(v) =&gt; match v.as_object() {
+                Some(o) =&gt; Some(o.clone()),
+                None =&gt; None,
+            },
+            None =&gt; None,
+        };
+
+        let name: &amp;str = &amp;name;
+        match name {
+            "fade" =&gt; Some(Box::new(FadeAction::new(input, thing))),
+            _ =&gt; None,
+        }
+    }
+}
+
+struct EmptyValueForwarder;
+
+impl ValueForwarder for EmptyValueForwarder {
+    fn set_value(&amp;mut self, value: serde_json::Value) -&gt; Result&lt;serde_json::Value, &amp;'static str&gt; {
+        Ok(value)
+    }
+}
+
+fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
+    let mut thing = BaseThing::new(
+        "My Lamp".to_owned(),
+        Some("dimmableLight".to_owned()),
+        Some("A web connected lamp".to_owned()),
+    );
+
+    let on_description = json!({
+        "type": "boolean",
+        "description": "Whether the lamp is turned on"
+    });
+    let on_description = on_description.as_object().unwrap().clone();
+    thing.add_property(Box::new(BaseProperty::new(
+        "on".to_owned(),
+        json!(true),
+        Some(Box::new(EmptyValueForwarder)),
+        Some(on_description),
+    )));
+
+    let level_description = json!({
+        "type": "number",
+        "description": "The level of light from 0-100",
+        "minimum": 0,
+        "maximum": 100
+    });
+    let level_description = level_description.as_object().unwrap().clone();
+    thing.add_property(Box::new(BaseProperty::new(
+        "level".to_owned(),
+        json!(50),
+        Some(Box::new(EmptyValueForwarder)),
+        Some(level_description),
+    )));
+
+    let fade_metadata = json!({
+        "description": "Fade the lamp to a given level",
+        "input": {
+            "type": "object",
+            "required": [
+                "level",
+                "duration"
+            ],
+            "properties": {
+                "level": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "duration": {
+                    "type": "number",
+                    "unit": "milliseconds"
+                }
+            }
+        }
+    });
+    let fade_metadata = fade_metadata.as_object().unwrap().clone();
+    thing.add_available_action("fade".to_owned(), fade_metadata);
+
+    let overheated_metadata = json!({
+        "description": "The lamp has exceeded its safe operating temperature",
+        "type": "number",
+        "unit": "celsius"
+    });
+    let overheated_metadata = overheated_metadata.as_object().unwrap().clone();
+    thing.add_available_event("overheated".to_owned(), overheated_metadata);
+
+    Arc::new(RwLock::new(Box::new(thing)))
+}
+
+fn main() {
+    env_logger::init();
+
+    let mut things: Vec&lt;Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt;&gt; = Vec::new();
+    things.push(make_thing());
+
+    // If adding more than one thing here, be sure to set the `name`
+    // parameter to some string, which will be broadcast via mDNS.
+    // In the single thing case, the thing's name will be broadcast.
+    let server = WebThingServer::new(things, None, Some(8888), None, Box::new(Generator));
+    server.start();
 }
 </code></pre>
               </p>
@@ -516,6 +789,11 @@ void loop(void){
             <h3>webthing-java</h3>
             <img src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-java">Learn More</a>
+          </div>
+          <div class="library">
+            <h3>webthing-rust</h3>
+            <img src="../contribute/images/github.png" />
+            <a class="button" href="https://github.com/mozilla-iot/webthing-rust">Learn More</a>
           </div>
           <div class="library">
             <h3>webthing-esp8266</h3>
