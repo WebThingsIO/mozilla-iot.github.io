@@ -127,6 +127,7 @@ webthing = { git = "https://github.com/mozilla-iot/webthing-rust" }</code></pre>
   Action,
   Event,
   Property,
+  SingleThing,
   Thing,
   Value,
   WebThingServer,
@@ -162,20 +163,16 @@ function makeThing() {
     new Property(thing,
                  'on',
                  new Value(true, () =&gt; {}),
-                 {
-                   type: 'boolean',
-                   description: 'Whether the lamp is turned on',
-                 }));
+                 {type: 'boolean',
+                  description: 'Whether the lamp is turned on'}));
   thing.addProperty(
     new Property(thing,
                  'level',
                  new Value(50, () =&gt; {}),
-                 {
-                   type: 'number',
-                   description: 'The level of light from 0-100',
-                   minimum: 0,
-                   maximum: 100,
-                 }));
+                 {type: 'number',
+                  description: 'The level of light from 0-100',
+                  minimum: 0,
+                  maximum: 100}));
 
   thing.addAvailableAction(
     'fade',
@@ -204,11 +201,9 @@ function makeThing() {
 
   thing.addAvailableEvent(
     'overheated',
-    {
-      description: 'The lamp has exceeded its safe operating temperature',
-      type: 'number',
-      unit: 'celsius',
-    });
+    {description: 'The lamp has exceeded its safe operating temperature',
+     type: 'number',
+     unit: 'celsius'});
 
   return thing;
 }
@@ -216,10 +211,9 @@ function makeThing() {
 function runServer() {
   const thing = makeThing();
 
-  // If adding more than one thing here, be sure to set the second
-  // parameter to some string, which will be broadcast via mDNS.
+  // If adding more than one thing, use MultipleThings() with a name.
   // In the single thing case, the thing's name will be broadcast.
-  const server = new WebThingServer([thing], null, 8888);
+  const server = new WebThingServer(new SingleThing(thing), 8888);
 
   process.on('SIGINT', () =&gt; {
     server.stop();
@@ -235,7 +229,8 @@ runServer();
             </section>
             <section id="example-python">
               <p>
-<pre><code class="language-python">from webthing import Action, Event, Property, Thing, Value, WebThingServer
+<pre><code class="language-python">from webthing import (Action, Event, Property, SingleThing, Thing, Value,
+                      WebThingServer)
 import logging
 import time
 import uuid
@@ -318,10 +313,9 @@ def make_thing():
 def run_server():
     thing = make_thing()
 
-    # If adding more than one thing here, be sure to set the `name`
-    # parameter to some string, which will be broadcast via mDNS.
+    # If adding more than one thing, use MultipleThings() with a name.
     # In the single thing case, the thing's name will be broadcast.
-    server = WebThingServer([thing], port=8888)
+    server = WebThingServer(SingleThing(thing), port=8888)
     try:
         logging.info('starting the server')
         server.start()
@@ -353,9 +347,7 @@ import org.mozilla.iot.webthing.Value;
 import org.mozilla.iot.webthing.WebThingServer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -414,13 +406,10 @@ public class SingleThing {
         WebThingServer server;
 
         try {
-            List&lt;Thing&gt; things = new ArrayList&lt;&gt;();
-            things.add(thing);
-
-            // If adding more than one thing here, be sure to set the second
-            // parameter to some string, which will be broadcast via mDNS.
+            // If adding more than one thing, use MultipleThings() with a name.
             // In the single thing case, the thing's name will be broadcast.
-            server = new WebThingServer(things, null, 8888);
+            server = new WebThingServer(new WebThingServer.SingleThing(thing),
+                                        8888);
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 public void run() {
@@ -471,12 +460,13 @@ extern crate serde_json;
 extern crate uuid;
 extern crate webthing;
 
-use std::{thread, time};
 use std::sync::{Arc, RwLock, Weak};
+use std::{thread, time};
 use uuid::Uuid;
-use webthing::{Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing,
-               WebThingServer};
 use webthing::property::EmptyValueForwarder;
+use webthing::{Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing, ThingsType,
+               WebThingServer};
+
 use webthing::server::ActionGenerator;
 
 pub struct OverheatedEvent(BaseEvent);
@@ -691,14 +681,16 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
 
 fn main() {
     env_logger::init();
+    let thing = make_thing();
 
-    let mut things: Vec&lt;Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt;&gt; = Vec::new();
-    things.push(make_thing());
-
-    // If adding more than one thing here, be sure to set the `name`
-    // parameter to some string, which will be broadcast via mDNS.
+    // If adding more than one thing, use ThingsType::Multiple() with a name.
     // In the single thing case, the thing's name will be broadcast.
-    let server = WebThingServer::new(things, None, Some(8888), None, Box::new(Generator));
+    let server = WebThingServer::new(
+        ThingsType::Single(thing),
+        Some(8888),
+        None,
+        Box::new(Generator),
+    );
     server.start();
 }
 </code></pre>
