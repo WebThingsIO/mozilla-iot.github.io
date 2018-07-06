@@ -55,7 +55,7 @@
     <section id="things-framework-intro">
       <h1>Build Your Own Web Things</h1>
       <p class="subtitle">Connect your devices to the Web of Things</p>
-      <div class="column"><img src="images/things.png" /></div>
+      <div class="column"><img alt="Things icon" src="images/things.png" /></div>
       <div class="column">
         <p>The Things Framework is a collection of re-usable software components to help you build your own web things, which directly expose the <a href="/specification">Web Thing API</a>. This means they can be discovered by a Web of Things gateway or client, which can then automatically detect the device's capabilities and monitor and control it over the web.</p>
       </div>
@@ -67,35 +67,33 @@
         <section id="installation">
           <h2>Installation</h2>
           <ul id="installation-tabs" class="tabs">
-            <li><a id="installation-tab-node" class="selected" href="#installation-node" data-section="installation-node">NodeJS</a></li>
+            <li><a id="installation-tab-node" class="selected" href="#installation-node" data-section="installation-node">Node.js</a></li>
             <li><a id="installation-tab-python" href="#installation-python" data-section="installation-python">Python</a></li>
             <li><a id="installation-tab-java" href="#installation-java" data-section="installation-java">Java</a></li>
             <li><a id="installation-tab-rust" href="#installation-rust" data-section="installation-rust">Rust</a></li>
+            <li><a id="installation-tab-arduino" href="#installation-arduino" data-section="installation-arduino">Arduino</a></li>
           </ul>
           <div class="tab-sections">
             <section class="selected" id="installation-node">
-              <p>
-                <pre><code class="language-bash">$ npm install webthing</code></pre>
-              </p>
+              <pre><code class="language-bash">$ npm install webthing</code></pre>
             </section>
             <section id="installation-python">
-              <p>
-                <pre><code class="language-bash">$ pip install webthing</code></pre>
-              </p>
+              <pre><code class="language-bash">$ pip install webthing</code></pre>
             </section>
             <section id="installation-java">
-              <p>Maven:
-<pre><code class="language-markup">&lt;dependencies&gt;
+              <p>
+                Maven:
+                <pre><code class="language-markup">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.mozilla.iot&lt;/groupId&gt;
         &lt;artifactId&gt;webthing&lt;/artifactId&gt;
         &lt;version&gt;LATEST&lt;/version&gt;
     &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre>
+&lt;/dependencies&gt;</code></pre>
               </p>
-              <p>Gradle:
-<pre><code class="language-json">dependencies {
+              <p>
+                Gradle:
+                <pre><code class="language-json">dependencies {
     runtime(
         [group: 'org.mozilla.iot', name: 'webthing', version: 'LATEST'],
     )
@@ -103,10 +101,20 @@
               </p>
             </section>
             <section id="installation-rust">
-              <p>Cargo:
-<pre><code class="language-toml">[dependencies]
-webthing = "0.5"</code></pre>
+              <p>
+                Cargo:
+                <pre><code class="language-toml">[dependencies]
+webthing = "0.7"</code></pre>
               </p>
+            </section>
+            <section id="installation-arduino">
+              <dl>
+                <dt><strong>Arduino IDE:</strong></dt>
+                <dd>Add the <strong>webthing</strong> and <strong>ArduinoJson</strong> libraries to your project.</dd>
+                <br>
+                <dt><strong>PlatformIO:</strong></dt>
+                <dd>Add the <strong>webthing-arduino</strong> and <strong>ArduinoJson</strong> libraries to your project.</dd>
+              </dl>
             </section>
           </div>
         </section>
@@ -114,16 +122,15 @@ webthing = "0.5"</code></pre>
         <section id="example">
           <h2>Example</h2>
           <ul id="example-tabs" class="tabs">
-            <li><a id="example-tab-node" class="selected" href="#example-node" data-section="example-node">NodeJS</a></li>
+            <li><a id="example-tab-node" class="selected" href="#example-node" data-section="example-node">Node.js</a></li>
             <li><a id="example-tab-python" href="#example-python" data-section="example-python">Python</a></li>
             <li><a id="example-tab-java" href="#example-java" data-section="example-java">Java</a></li>
             <li><a id="example-tab-rust" href="#example-rust" data-section="example-rust">Rust</a></li>
-            <li><a id="example-tab-esp8266" href="#example-esp8266" data-section="example-esp8266">ESP8266</a></li>
+            <li><a id="example-tab-arduino" href="#example-arduino" data-section="example-arduino">Arduino</a></li>
           </ul>
           <div class="tab-sections">
             <section class="selected" id="example-node">
-              <p>
-                <pre><code class="language-javascript">const {
+              <pre><code class="language-javascript">const {
   Action,
   Event,
   Property,
@@ -223,13 +230,10 @@ function runServer() {
   server.start();
 }
 
-runServer();
-                </code></pre>
-              </p>
+runServer();</code></pre>
             </section>
             <section id="example-python">
-              <p>
-<pre><code class="language-python">from webthing import (Action, Event, Property, SingleThing, Thing, Value,
+              <pre><code class="language-python">from webthing import (Action, Event, Property, SingleThing, Thing, Value,
                       WebThingServer)
 import logging
 import time
@@ -330,13 +334,10 @@ if __name__ == '__main__':
         level=10,
         format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
     )
-    run_server()
-</code></pre>
-              </p>
+    run_server()</code></pre>
             </section>
             <section id="example-java">
-              <p>
-<pre><code class="language-java">package org.mozilla.iot.webthing.example;
+              <pre><code class="language-java">package org.mozilla.iot.webthing.example;
 
 import org.json.JSONObject;
 import org.mozilla.iot.webthing.Action;
@@ -448,13 +449,10 @@ public class SingleThing {
             thing.addEvent(new OverheatedEvent(thing, 102));
         }
     }
-}
-</code></pre>
-              </p>
+}</code></pre>
             </section>
             <section id="example-rust">
-              <p>
-<pre><code class="language-rust">extern crate env_logger;
+              <pre><code class="language-rust">extern crate env_logger;
 #[macro_use]
 extern crate serde_json;
 extern crate uuid;
@@ -692,13 +690,10 @@ fn main() {
         Box::new(Generator),
     );
     server.start();
-}
-</code></pre>
-              </p>
+}</code></pre>
             </section>
-            <section id="example-esp8266">
-              <p>
-<pre><code class="language-cpp">#include &lt;ESP8266WiFi.h&gt;
+            <section id="example-arduino">
+              <pre><code class="language-cpp">#include &lt;ESP8266WiFi.h&gt;
 #include &lt;WiFiClient.h&gt;
 #include &lt;Thing.h&gt;
 #include &lt;WebThingAdapter.h&gt;
@@ -750,9 +745,7 @@ void loop(void){
     int level = map(lampLevel.getValue().number, 0, 100, 255, 0);
     analogWrite(lampPin, level);
   }
-}
-</code></pre>
-              </p>
+}</code></pre>
             </section>
           </div>
         </section>
@@ -760,29 +753,29 @@ void loop(void){
         <section id="libraries">
           <h2>Find Out More</h2>
           <div class="library">
-            <h3>webthing-node</h3>
-            <img src="../contribute/images/github.png" />
+            <h3>Node.js</h3>
+            <img alt="GitHub logo" src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-node">Learn More</a>
           </div>
           <div class="library">
-            <h3>webthing-python</h3>
-            <img src="../contribute/images/github.png" />
+            <h3>Python</h3>
+            <img alt="GitHub logo" src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-python">Learn More</a>
           </div>
           <div class="library">
-            <h3>webthing-java</h3>
-            <img src="../contribute/images/github.png" />
+            <h3>Java</h3>
+            <img alt="GitHub logo" src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-java">Learn More</a>
           </div>
           <div class="library">
-            <h3>webthing-rust</h3>
-            <img src="../contribute/images/github.png" />
+            <h3>Rust</h3>
+            <img alt="GitHub logo" src="../contribute/images/github.png" />
             <a class="button" href="https://github.com/mozilla-iot/webthing-rust">Learn More</a>
           </div>
           <div class="library">
-            <h3>webthing-esp8266</h3>
-            <img src="../contribute/images/github.png" />
-            <a class="button" href="https://github.com/mozilla-iot/webthing-esp8266">Learn More</a>
+            <h3>Arduino</h3>
+            <img alt="GitHub logo" src="../contribute/images/github.png" />
+            <a class="button" href="https://github.com/mozilla-iot/webthing-arduino">Learn More</a>
           </div>
         </section>
       </div>
