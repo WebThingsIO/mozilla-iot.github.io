@@ -155,7 +155,7 @@ class FadeAction extends Action {
   performAction() {
     return new Promise((resolve) =&gt; {
       setTimeout(() =&gt; {
-        this.thing.setProperty('level', this.input.level);
+        this.thing.setProperty('brightness', this.input.brightness);
         this.thing.addEvent(new OverheatedEvent(this.thing, 102));
         resolve();
       }, this.input.duration);
@@ -164,41 +164,55 @@ class FadeAction extends Action {
 }
 
 function makeThing() {
-  const thing = new Thing('My Lamp', 'dimmableLight', 'A web connected lamp');
+  const thing = new Thing('My Lamp',
+                          ['OnOffSwitch', 'Light'],
+                          'A web connected lamp');
 
   thing.addProperty(
     new Property(thing,
                  'on',
                  new Value(true, () =&gt; {}),
-                 {type: 'boolean',
-                  description: 'Whether the lamp is turned on'}));
+                 {
+                   '@type': 'OnOffProperty',
+                   label: 'On/Off',
+                   type: 'boolean',
+                   description: 'Whether the lamp is turned on',
+                 }));
   thing.addProperty(
     new Property(thing,
-                 'level',
+                 'brightness',
                  new Value(50, () =&gt; {}),
-                 {type: 'number',
-                  description: 'The level of light from 0-100',
-                  minimum: 0,
-                  maximum: 100}));
+                 {
+                   '@type': 'BrightnessProperty',
+                   label: 'Brightness',
+                   type: 'number',
+                   description: 'The level of light from 0-100',
+                   minimum: 0,
+                   maximum: 100,
+                   unit: 'percent',
+                 }));
 
   thing.addAvailableAction(
     'fade',
     {
+      label: 'Fade',
       description: 'Fade the lamp to a given level',
       input: {
         type: 'object',
         required: [
-          'level',
+          'brightness',
           'duration',
         ],
         properties: {
-          level: {
+          brightness: {
             type: 'number',
             minimum: 0,
             maximum: 100,
+            unit: 'percent',
           },
           duration: {
             type: 'number',
+            minimum: 1,
             unit: 'milliseconds',
           },
         },
@@ -208,9 +222,11 @@ function makeThing() {
 
   thing.addAvailableEvent(
     'overheated',
-    {description: 'The lamp has exceeded its safe operating temperature',
-     type: 'number',
-     unit: 'celsius'});
+    {
+      description: 'The lamp has exceeded its safe operating temperature',
+      type: 'number',
+      unit: 'celsius',
+    });
 
   return thing;
 }
@@ -253,12 +269,12 @@ class FadeAction(Action):
 
     def perform_action(self):
         time.sleep(self.input['duration'] / 1000)
-        self.thing.set_property('level', self.input['level'])
+        self.thing.set_property('brightness', self.input['brightness'])
         self.thing.add_event(OverheatedEvent(self.thing, 102))
 
 
 def make_thing():
-    thing = Thing('My Lamp', 'dimmableLight', 'A web connected lamp')
+    thing = Thing('My Lamp', ['OnOffSwitch', 'Light'], 'A web connected lamp')
 
     def noop(_):
         pass
@@ -268,48 +284,61 @@ def make_thing():
                  'on',
                  Value(True, noop),
                  metadata={
+                     '@type': 'OnOffProperty',
+                     'label': 'On/Off',
                      'type': 'boolean',
                      'description': 'Whether the lamp is turned on',
                  }))
     thing.add_property(
         Property(thing,
-                 'level',
+                 'brightness',
                  Value(50, noop),
                  metadata={
+                     '@type': 'BrightnessProperty',
+                     'label': 'Brightness',
                      'type': 'number',
                      'description': 'The level of light from 0-100',
                      'minimum': 0,
                      'maximum': 100,
+                     'unit': 'percent',
                  }))
 
     thing.add_available_action(
         'fade',
-        {'description': 'Fade the lamp to a given level',
-         'input': {
-             'type': 'object',
-             'required': [
-                 'level',
-                 'duration',
-             ],
-             'properties': {
-                 'level': {
-                     'type': 'number',
-                     'minimum': 0,
-                     'maximum': 100,
-                 },
-                 'duration': {
-                     'type': 'number',
-                     'unit': 'milliseconds',
-                 },
-             },
-         }},
+        {
+            'label': 'Fade',
+            'description': 'Fade the lamp to a given level',
+            'input': {
+                'type': 'object',
+                'required': [
+                    'brightness',
+                    'duration',
+                ],
+                'properties': {
+                    'brightness': {
+                        'type': 'number',
+                        'minimum': 0,
+                        'maximum': 100,
+                        'unit': 'percent',
+                    },
+                    'duration': {
+                        'type': 'number',
+                        'minimum': 1,
+                        'unit': 'milliseconds',
+                    },
+                },
+            },
+        },
         FadeAction)
 
     thing.add_available_event(
         'overheated',
-        {'description': 'The lamp has exceeded its safe operating temperature',
-         'type': 'number',
-         'unit': 'celsius'})
+        {
+            'description':
+            'The lamp has exceeded its safe operating temperature',
+            'type': 'number',
+            'unit': 'celsius',
+        })
 
     return thing
 
@@ -348,45 +377,56 @@ import org.mozilla.iot.webthing.Value;
 import org.mozilla.iot.webthing.WebThingServer;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class SingleThing {
     public static Thing makeThing() {
-        Thing thing =
-                new Thing("My Lamp", "dimmableLight", "A web connected lamp");
+        Thing thing = new Thing("My Lamp",
+                                Arrays.asList("OnOffSwitch", "Light"),
+                                "A web connected lamp");
 
         Map&lt;String, Object&gt; onDescription = new HashMap&lt;&gt;();
+        onDescription.put("@type", "OnOffProperty");
+        onDescription.put("label", "On/Off");
         onDescription.put("type", "boolean");
         onDescription.put("description", "Whether the lamp is turned on");
         // noop for state change
-        thing.addProperty(new Property(thing, "on", new Value(true, on -&gt; {
+        thing.addProperty(new Property(thing, "on", new Value(true, v -&gt; {
         }), onDescription));
 
-        Map&lt;String, Object&gt; levelDescription = new HashMap&lt;&gt;();
-        levelDescription.put("type", "number");
-        levelDescription.put("description", "The level of light from 0-100");
-        levelDescription.put("minimum", 0);
-        levelDescription.put("maximum", 100);
-        // noop consumer for level
-        thing.addProperty(new Property(thing, "level", new Value(50, level -&gt; {
-        }), levelDescription));
+        Map&lt;String, Object&gt; brightnessDescription = new HashMap&lt;&gt;();
+        brightnessDescription.put("@type", "BrightnessProperty");
+        brightnessDescription.put("label", "Brightness");
+        brightnessDescription.put("type", "number");
+        brightnessDescription.put("description",
+                                  "The level of light from 0-100");
+        brightnessDescription.put("minimum", 0);
+        brightnessDescription.put("maximum", 100);
+        brightnessDescription.put("unit", "percent");
+        // noop consumer for brightness
+        thing.addProperty(new Property(thing, "brightness", new Value(50, v -&gt; {
+        }), brightnessDescription));
 
         Map&lt;String, Object&gt; fadeMetadata = new HashMap&lt;&gt;();
         Map&lt;String, Object&gt; fadeInput = new HashMap&lt;&gt;();
         Map&lt;String, Object&gt; fadeProperties = new HashMap&lt;&gt;();
-        Map&lt;String, Object&gt; fadeLevel = new HashMap&lt;&gt;();
+        Map&lt;String, Object&gt; fadeBrightness = new HashMap&lt;&gt;();
         Map&lt;String, Object&gt; fadeDuration = new HashMap&lt;&gt;();
+        fadeMetadata.put("label", "Fade");
         fadeMetadata.put("description", "Fade the lamp to a given level");
         fadeInput.put("type", "object");
-        fadeInput.put("required", new String[]{"level", "duration"});
-        fadeLevel.put("type", "number");
-        fadeLevel.put("minimum", 0);
-        fadeLevel.put("maximum", 100);
+        fadeInput.put("required", new String[]{"brightness", "duration"});
+        fadeBrightness.put("type", "number");
+        fadeBrightness.put("minimum", 0);
+        fadeBrightness.put("maximum", 100);
+        fadeBrightness.put("unit", "percent");
         fadeDuration.put("type", "number");
+        fadeDuration.put("minimum", 1);
         fadeDuration.put("unit", "milliseconds");
-        fadeProperties.put("level", fadeLevel);
+        fadeProperties.put("brightness", fadeBrightness);
         fadeProperties.put("duration", fadeDuration);
         fadeInput.put("properties", fadeProperties);
         fadeMetadata.put("input", fadeInput);
@@ -445,7 +485,7 @@ public class SingleThing {
             } catch (InterruptedException e) {
             }
 
-            thing.setProperty("level", input.getInt("level"));
+            thing.setProperty("brightness", input.getInt("brightness"));
             thing.addEvent(new OverheatedEvent(thing, 102));
         }
     }
@@ -568,7 +608,10 @@ impl Action for FadeAction {
 
             let thing = thing.clone();
             let mut thing = thing.write().unwrap();
-            let _ = thing.set_property("level".to_owned(), input.get("level").unwrap().clone());
+            let _ = thing.set_property(
+                "brightness".to_owned(),
+                input.get("brightness").unwrap().clone(),
+            );
             thing.add_event(Box::new(OverheatedEvent::new(Some(json!(102)))));
 
             thing.finish_action(name, id);
@@ -612,11 +655,13 @@ impl ActionGenerator for Generator {
 fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     let mut thing = BaseThing::new(
         "My Lamp".to_owned(),
-        Some("dimmableLight".to_owned()),
+        Some(vec!["OnOffSwitch".to_owned(), "Light".to_owned()]),
         Some("A web connected lamp".to_owned()),
     );
 
     let on_description = json!({
+        "@type": "OnOffProperty",
+        "label": "On/Off",
         "type": "boolean",
         "description": "Whether the lamp is turned on"
     });
@@ -628,36 +673,42 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
         Some(on_description),
     )));
 
-    let level_description = json!({
+    let brightness_description = json!({
+        "@type": "BrightnessProperty",
+        "label": "Brightness",
         "type": "number",
         "description": "The level of light from 0-100",
         "minimum": 0,
-        "maximum": 100
+        "maximum": 100,
+        "unit": "percent"
     });
-    let level_description = level_description.as_object().unwrap().clone();
+    let brightness_description = brightness_description.as_object().unwrap().clone();
     thing.add_property(Box::new(BaseProperty::new(
-        "level".to_owned(),
+        "brightness".to_owned(),
         json!(50),
         Some(Box::new(EmptyValueForwarder)),
-        Some(level_description),
+        Some(brightness_description),
     )));
 
     let fade_metadata = json!({
+        "label": "Fade",
         "description": "Fade the lamp to a given level",
         "input": {
             "type": "object",
             "required": [
-                "level",
+                "brightness",
                 "duration"
             ],
             "properties": {
-                "level": {
+                "brightness": {
                     "type": "number",
                     "minimum": 0,
-                    "maximum": 100
+                    "maximum": 100,
+                    "unit": "percent"
                 },
                 "duration": {
                     "type": "number",
+                    "minimum": 1,
                     "unit": "milliseconds"
                 }
             }
@@ -693,28 +744,34 @@ fn main() {
 }</code></pre>
             </section>
             <section id="example-arduino">
-              <pre><code class="language-cpp">#include &lt;ESP8266WiFi.h&gt;
-#include &lt;WiFiClient.h&gt;
+              <pre><code class="language-cpp">#include &lt;Arduino.h&gt;
 #include &lt;Thing.h&gt;
 #include &lt;WebThingAdapter.h&gt;
 
 const char* ssid = "......";
 const char* password = "..........";
 
+#if defined(LED_BUILTIN)
 const int lampPin = LED_BUILTIN;
+#else
+const int lampPin = 13;  // manually configure LED pin
+#endif
 
-WebThingAdapter adapter("esp8266");
+WebThingAdapter adapter("led-lamp");
 
-ThingDevice lamp("lamp", "My Lamp", "dimmableLight");
+const char* lampTypes[] = {"OnOffSwitch", "Light", nullptr};
+ThingDevice lamp("lamp", "My Lamp", lampTypes);
 
-ThingProperty lampOn("on", "Whether the lamp is turned on", BOOLEAN);
-ThingProperty lampLevel("level", "The level of light from 0-100", NUMBER);
+ThingProperty lampOn("on", "Whether the lamp is turned on", BOOLEAN, "OnOffProperty");
+ThingProperty lampLevel("level", "The level of light from 0-100", NUMBER, "BrightnessProperty");
 
 void setup(void){
   pinMode(lampPin, OUTPUT);
   digitalWrite(lampPin, HIGH);
   Serial.begin(115200);
+#if defined(ESP8266) || defined(ESP32)
   WiFi.mode(WIFI_STA);
+#endif
   WiFi.begin(ssid, password);
   Serial.println("");
 
@@ -744,6 +801,8 @@ void loop(void){
   if (lampOn.getValue().boolean) {
     int level = map(lampLevel.getValue().number, 0, 100, 255, 0);
     analogWrite(lampPin, level);
+  } else {
+    analogWrite(lampPin, 255);
   }
 }</code></pre>
             </section>
