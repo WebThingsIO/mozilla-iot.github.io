@@ -17,6 +17,7 @@
     <meta property="og:url" content="https://iot.mozilla.org/gateway" />
     <meta property="og:image" content="https://iot.mozilla.org/images/gateway_banner.png" />
     <script src="/js/analytics.js"></script>
+    <script src="js/carousel.js"></script>
     <script>
       /**
       * Track clicks on outbound links (e.g. download).
@@ -50,13 +51,76 @@
       <a id="menu-button"></a>
     </header>
     <section id="intro">
-      <h1>Build Your Own Web of Things Gateway</h1>
-      <p class="subtitle">Directly monitor and control your home over the web</p>
-      <img src="../images/raspberry_pi.png" alt="Illustration of Raspberry Pi" />
       <h2><strong>Things</strong> Gateway <span class="by-mozilla">by Mozilla</span></h2>
+      <div id="carousel">
+        <section id="carousel-section1" class="selected carousel-section">
+          <div class="carousel-screenshot">
+            <img class="carousel-screenshot-image" src="images/things_ui_screenshot.png" />
+          </div>
+          <div class="carousel-description">
+            <div class="carousel-description-wrapper">
+              <h3 class="carousel-heading">Things UI</h3>
+              <p class="carousel-paragraph">Monitor and control all your smart home devices via a unified web interface.</p>
+            </div>
+          </div>
+        </section>
+        <section id="carousel-section2" class="carousel-section">
+          <div class="carousel-screenshot">
+            <img class="carousel-screenshot-image" src="images/rules_engine_screenshot.png" />
+          </div>
+          <div class="carousel-description">
+            <div class="carousel-description-wrapper">
+              <h3 class="carousel-heading">Rules Engine</h3>
+              <p class="carousel-paragraph">Create "if this then that" style rules to automate your home with a simple drag and drop interface.</p>
+            </div>
+          </div>
+        </section>
+        <section id="carousel-section3" class="carousel-section">
+          <div class="carousel-screenshot">
+            <img class="carousel-screenshot-image" src="images/floorplan_screenshot.png" />
+          </div>
+          <div class="carousel-description">
+            <div class="carousel-description-wrapper">
+              <h3 class="carousel-heading">Floorplan</h3>
+              <p class="carousel-paragraph">Lay out all your devices on an interactive floorplan of your home for at-a-glance status and control.</p>
+            </div>
+          </div>
+        </section>
+        <section id="carousel-section4" class="carousel-section">
+          <div class="carousel-screenshot">
+            <img class="carousel-screenshot-image" src="images/smart_assistant_screenshot.png" />
+          </div>
+          <div class="carousel-description">
+            <div class="carousel-description-wrapper">
+              <h3 class="carousel-heading">Smart Assistant</h3>
+              <p class="carousel-paragraph">Control your home with your voice or written commands via a chat style interface.</p>
+            </div>
+          </div>
+        </section>
+        <section id="carousel-section5" class="carousel-section">
+          <div class="carousel-screenshot">
+            <img class="carousel-screenshot-image" src="images/addons_screenshot.png" />
+          </div>
+          <div class="carousel-description">
+            <div class="carousel-description-wrapper">
+              <h3 class="carousel-heading">Add-ons</h3>
+              <p class="carousel-paragraph">Add compatibiltiy with more devices and protocols with adapter add-ons.</p>
+            </div>
+          </div>
+        </section>
+        <ul id="carousel-tabs">
+          <li><a id="carousel-tab1" href="#carousel-section1" data-section="carousel-section1" class="selected"></a></li>
+          <li><a id="carousel-tab2" href="#carousel-section2" data-section="carousel-section2"></a></li>
+          <li><a id="carousel-tab3" href="#carousel-section3" data-section="carousel-section3"></a></li>
+          <li><a id="carousel-tab4" href="#carousel-section4" data-section="carousel-section4"></a></li>
+          <li><a id="carousel-tab5" href="#carousel-section5" data-section="carousel-section5"></a></li>
+        </ul>
+      </div>
     </section>
     <section id="instructions">
       <div id="instructions-content">
+        <h1>Build Your Own Web of Things Gateway</h1>
+        <p class="subtitle">Directly monitor and control your home over the web</p>
         <div id="instruction-1" class="instruction">
           <h3>Raspberry Pi</h3>
           <p><strong>Get your hands on a Raspberry Pi<sup>®</sup></strong> single board computer. The latest <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3</a> has WiFi and Bluetooth support built in, as well as access to GPIO ports for direct hardware connections. This is not essential as you can use alternative developer boards, or even your laptop or desktop computer, but it will currently provide the best experience. </p>
@@ -71,7 +135,7 @@
           <h3>Flash SD Card</h3>
           <p>
             <strong>Download the pre-built Raspberry Pi OS image from Mozilla and <a href="https://www.raspberrypi.org/documentation/installation/installing-images/">flash it onto an SD card.</a></strong> Please note that this is experimental pre-release software and at this prototype stage is not ready for production use. It is intended as an early preview for hackers, makers and web developers to get their hands on with the Web of Things.<br />
-            <a id="download-button" class="button" href="https://github.com/mozilla-iot/gateway/releases/download/0.4.1/gateway-0.4.1.img.zip" onclick="trackOutboundLink('https://github.com/mozilla-iot/gateway/releases/download/0.4.1/gateway-0.4.1.img.zip'); return false;">Download 0.4.1</a>
+            <a id="download-button" class="button" href="https://github.com/mozilla-iot/gateway/releases/download/0.5.0/gateway-0.5.0.img.zip" onclick="trackOutboundLink('https://github.com/mozilla-iot/gateway/releases/download/0.5.0/gateway-0.5.0.img.zip'); return false;">Download 0.5</a>
           </p>
           <img src="images/sd_card.png" alt="Illustration of an SD card" />
           <p>(Alternatively, if you'd prefer to just try out the software on your PC you can follow the <a href="https://github.com/mozilla-iot/gateway/blob/master/README.md">instructions on GitHub</a> to checkout the code and build it yourself.)</a></p>

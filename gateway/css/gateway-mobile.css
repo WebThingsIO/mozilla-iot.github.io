@@ -1,6 +1,29 @@
-#intro img {
-  width: calc(100% - 4rem);
-  max-width: 40rem;
+#intro h2 {
+ padding: 3rem 0;
+}
+
+.carousel-section.selected {
+  display: block;
+}
+
+.carousel-screenshot {
+  display: block;
+  padding-bottom: 0;
+}
+
+.carousel-screenshot-image {
+  width: 100%;
+  margin: 0;
+}
+
+.carousel-description {
+  display: block;
+  padding-bottom: 0;
+}
+
+.carousel-description-wrapper {
+  top: 0;
+  transform: none;
 }
 
 #instructions {
