@@ -8,20 +8,93 @@ section p {
 }
 
 #intro {
-  background-color: #5d9bc7;
-  color: #fff;
+  background-color: #e3eff8;
+  background-image: url('../images/hub_background.png');
+  background-size: cover;
+  background-position: center;
+  color: #000;
   text-align: center;
+  padding: 0;
 }
 
 #intro h2 {
   display: inline-block;
-  font-size: 2.6rem;
+  font-size: 3.0rem;
+  padding: 3rem 0 0 0;
 }
 
-#intro img {
-  width: 40rem;
+.carousel-section {
+  display: none;
+  flex-direction: row;
+  padding-bottom: 0;
+}
+
+.carousel-section.selected {
+  display: flex;
+}
+
+.carousel-screenshot {
+  flex: 1;
+  padding: 0 2rem;
+}
+
+.carousel-screenshot-image {
+  width: 90%;
+  max-width: 80rem;
+  margin: 3rem 0;
+}
+
+.carousel-description {
+  flex: 1;
+  text-align: left;
+  padding: 0 2rem;
+}
+
+.carousel-description-wrapper {
+  padding: 2rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-heading {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  padding: 0rem 0.5rem;
+  margin: 0;
+}
+
+#carousel-tabs {
   display: block;
-  margin: 2rem auto;
+  margin: 0 auto;
+  width: 20rem;
+  list-style-type: none;
+  padding-bottom: 2rem;
+}
+
+#carousel-tabs a {
+  display: inline-block;
+  margin: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  background-color: #609dc8;
+  opacity: 0.3;
+}
+
+#carousel-tabs a:focus {
+  outline: none;
+}
+
+#carousel-tabs a.selected {
+  opacity: 1;
+}
+
+#carousel-tabs li {
+  display: inline-block;
 }
 
 #instructions {
