@@ -104,7 +104,7 @@
               <p>
                 Cargo:
                 <pre><code class="language-toml">[dependencies]
-webthing = "0.7"</code></pre>
+webthing = "0.9"</code></pre>
               </p>
             </section>
             <section id="installation-arduino">
@@ -239,11 +239,10 @@ function runServer() {
   const server = new WebThingServer(new SingleThing(thing), 8888);
 
   process.on('SIGINT', () =&gt; {
-    server.stop();
-    process.exit();
+    server.stop().then(() =&gt; process.exit()).catch(() =&gt; process.exit());
   });
 
-  server.start();
+  server.start().catch(console.error);
 }
 
 runServer();</code></pre>
@@ -276,13 +275,10 @@ class FadeAction(Action):
 def make_thing():
     thing = Thing('My Lamp', ['OnOffSwitch', 'Light'], 'A web connected lamp')
 
-    def noop(_):
-        pass
-
     thing.add_property(
         Property(thing,
                  'on',
-                 Value(True, noop),
+                 Value(True),
                  metadata={
                      '@type': 'OnOffProperty',
                      'label': 'On/Off',
@@ -292,7 +288,7 @@ def make_thing():
     thing.add_property(
         Property(thing,
                  'brightness',
-                 Value(50, noop),
+                 Value(50),
                  metadata={
                      '@type': 'BrightnessProperty',
                      'label': 'Brightness',
@@ -368,6 +364,7 @@ if __name__ == '__main__':
             <section id="example-java">
               <pre><code class="language-java">package org.mozilla.iot.webthing.example;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.mozilla.iot.webthing.Action;
 import org.mozilla.iot.webthing.Event;
@@ -375,29 +372,31 @@ import org.mozilla.iot.webthing.Property;
 import org.mozilla.iot.webthing.Thing;
 import org.mozilla.iot.webthing.Value;
 import org.mozilla.iot.webthing.WebThingServer;
+import org.mozilla.iot.webthing.errors.PropertyError;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class SingleThing {
     public static Thing makeThing() {
         Thing thing = new Thing("My Lamp",
-                                Arrays.asList("OnOffSwitch", "Light"),
+                                new JSONArray(Arrays.asList("OnOffSwitch",
+                                                            "Light")),
                                 "A web connected lamp");
 
-        Map&lt;String, Object&gt; onDescription = new HashMap&lt;&gt;();
+        JSONObject onDescription = new JSONObject();
         onDescription.put("@type", "OnOffProperty");
         onDescription.put("label", "On/Off");
         onDescription.put("type", "boolean");
         onDescription.put("description", "Whether the lamp is turned on");
         // noop for state change
-        thing.addProperty(new Property(thing, "on", new Value(true, v -&gt; {
-        }), onDescription));
+        thing.addProperty(new Property(thing,
+                                       "on",
+                                       new Value(true),
+                                       onDescription));
 
-        Map&lt;String, Object&gt; brightnessDescription = new HashMap&lt;&gt;();
+        JSONObject brightnessDescription = new JSONObject();
         brightnessDescription.put("@type", "BrightnessProperty");
         brightnessDescription.put("label", "Brightness");
         brightnessDescription.put("type", "number");
@@ -407,18 +406,21 @@ public class SingleThing {
         brightnessDescription.put("maximum", 100);
         brightnessDescription.put("unit", "percent");
         // noop consumer for brightness
-        thing.addProperty(new Property(thing, "brightness", new Value(50, v -&gt; {
-        }), brightnessDescription));
+        thing.addProperty(new Property(thing,
+                                       "brightness",
+                                       new Value(50),
+                                       brightnessDescription));
 
-        Map&lt;String, Object&gt; fadeMetadata = new HashMap&lt;&gt;();
-        Map&lt;String, Object&gt; fadeInput = new HashMap&lt;&gt;();
-        Map&lt;String, Object&gt; fadeProperties = new HashMap&lt;&gt;();
-        Map&lt;String, Object&gt; fadeBrightness = new HashMap&lt;&gt;();
-        Map&lt;String, Object&gt; fadeDuration = new HashMap&lt;&gt;();
+        JSONObject fadeMetadata = new JSONObject();
+        JSONObject fadeInput = new JSONObject();
+        JSONObject fadeProperties = new JSONObject();
+        JSONObject fadeBrightness = new JSONObject();
+        JSONObject fadeDuration = new JSONObject();
         fadeMetadata.put("label", "Fade");
         fadeMetadata.put("description", "Fade the lamp to a given level");
         fadeInput.put("type", "object");
-        fadeInput.put("required", new String[]{"brightness", "duration"});
+        fadeInput.put("required",
+                      new JSONArray(Arrays.asList("brightness", "duration")));
         fadeBrightness.put("type", "number");
         fadeBrightness.put("minimum", 0);
         fadeBrightness.put("maximum", 100);
@@ -432,7 +434,7 @@ public class SingleThing {
         fadeMetadata.put("input", fadeInput);
         thing.addAvailableAction("fade", fadeMetadata, FadeAction.class);
 
-        Map&lt;String, Object&gt; overheatedMetadata = new HashMap&lt;&gt;();
+        JSONObject overheatedMetadata = new JSONObject();
         overheatedMetadata.put("description",
                                "The lamp has exceeded its safe operating temperature");
         overheatedMetadata.put("type", "number");
@@ -485,8 +487,11 @@ public class SingleThing {
             } catch (InterruptedException e) {
             }
 
-            thing.setProperty("brightness", input.getInt("brightness"));
-            thing.addEvent(new OverheatedEvent(thing, 102));
+            try {
+                thing.setProperty("brightness", input.getInt("brightness"));
+                thing.addEvent(new OverheatedEvent(thing, 102));
+            } catch (PropertyError e) {
+            }
         }
     }
 }</code></pre>
@@ -501,9 +506,10 @@ extern crate webthing;
 use std::sync::{Arc, RwLock, Weak};
 use std::{thread, time};
 use uuid::Uuid;
-use webthing::property::EmptyValueForwarder;
-use webthing::{Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing, ThingsType,
-               WebThingServer};
+use webthing::{
+    Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing, ThingsType,
+    WebThingServer,
+};
 
 use webthing::server::ActionGenerator;
 
@@ -669,7 +675,7 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     thing.add_property(Box::new(BaseProperty::new(
         "on".to_owned(),
         json!(true),
-        Some(Box::new(EmptyValueForwarder)),
+        None,
         Some(on_description),
     )));
 
@@ -686,7 +692,7 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     thing.add_property(Box::new(BaseProperty::new(
         "brightness".to_owned(),
         json!(50),
-        Some(Box::new(EmptyValueForwarder)),
+        None,
         Some(brightness_description),
     )));
 
@@ -734,12 +740,14 @@ fn main() {
 
     // If adding more than one thing, use ThingsType::Multiple() with a name.
     // In the single thing case, the thing's name will be broadcast.
-    let server = WebThingServer::new(
+    let mut server = WebThingServer::new(
         ThingsType::Single(thing),
         Some(8888),
         None,
+        None,
         Box::new(Generator),
     );
+    server.create();
     server.start();
 }</code></pre>
             </section>
