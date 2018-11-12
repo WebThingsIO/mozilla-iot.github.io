@@ -102,11 +102,11 @@ pre {
   box-sizing: border-box;
 }
 
-#libraries {
+#libraries, #libraries-3p {
   text-align: center;
 }
 
-#libraries h2 {
+#libraries h2, #libraries-3p h2 {
   text-align: left;
 }
 
