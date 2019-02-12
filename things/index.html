@@ -104,7 +104,7 @@
               <p>
                 Cargo:
                 <pre><code class="language-toml">[dependencies]
-webthing = "0.9"</code></pre>
+webthing = "0.11"</code></pre>
               </p>
             </section>
             <section id="installation-arduino">
@@ -171,21 +171,21 @@ function makeThing() {
   thing.addProperty(
     new Property(thing,
                  'on',
-                 new Value(true, () =&gt; {}),
+                 new Value(true),
                  {
                    '@type': 'OnOffProperty',
-                   label: 'On/Off',
+                   title: 'On/Off',
                    type: 'boolean',
                    description: 'Whether the lamp is turned on',
                  }));
   thing.addProperty(
     new Property(thing,
                  'brightness',
-                 new Value(50, () =&gt; {}),
+                 new Value(50),
                  {
                    '@type': 'BrightnessProperty',
-                   label: 'Brightness',
-                   type: 'number',
+                   title: 'Brightness',
+                   type: 'integer',
                    description: 'The level of light from 0-100',
                    minimum: 0,
                    maximum: 100,
@@ -195,7 +195,7 @@ function makeThing() {
   thing.addAvailableAction(
     'fade',
     {
-      label: 'Fade',
+      title: 'Fade',
       description: 'Fade the lamp to a given level',
       input: {
         type: 'object',
@@ -205,13 +205,13 @@ function makeThing() {
         ],
         properties: {
           brightness: {
-            type: 'number',
+            type: 'integer',
             minimum: 0,
             maximum: 100,
             unit: 'percent',
           },
           duration: {
-            type: 'number',
+            type: 'integer',
             minimum: 1,
             unit: 'milliseconds',
           },
@@ -225,7 +225,7 @@ function makeThing() {
     {
       description: 'The lamp has exceeded its safe operating temperature',
       type: 'number',
-      unit: 'celsius',
+      unit: 'degree celsius',
     });
 
   return thing;
@@ -248,7 +248,8 @@ function runServer() {
 runServer();</code></pre>
             </section>
             <section id="example-python">
-              <pre><code class="language-python">from webthing import (Action, Event, Property, SingleThing, Thing, Value,
+              <pre><code class="language-python">from __future__ import division
+from webthing import (Action, Event, Property, SingleThing, Thing, Value,
                       WebThingServer)
 import logging
 import time
@@ -281,7 +282,7 @@ def make_thing():
                  Value(True),
                  metadata={
                      '@type': 'OnOffProperty',
-                     'label': 'On/Off',
+                     'title': 'On/Off',
                      'type': 'boolean',
                      'description': 'Whether the lamp is turned on',
                  }))
@@ -291,8 +292,8 @@ def make_thing():
                  Value(50),
                  metadata={
                      '@type': 'BrightnessProperty',
-                     'label': 'Brightness',
-                     'type': 'number',
+                     'title': 'Brightness',
+                     'type': 'integer',
                      'description': 'The level of light from 0-100',
                      'minimum': 0,
                      'maximum': 100,
@@ -302,7 +303,7 @@ def make_thing():
     thing.add_available_action(
         'fade',
         {
-            'label': 'Fade',
+            'title': 'Fade',
             'description': 'Fade the lamp to a given level',
             'input': {
                 'type': 'object',
@@ -312,13 +313,13 @@ def make_thing():
                 ],
                 'properties': {
                     'brightness': {
-                        'type': 'number',
+                        'type': 'integer',
                         'minimum': 0,
                         'maximum': 100,
                         'unit': 'percent',
                     },
                     'duration': {
-                        'type': 'number',
+                        'type': 'integer',
                         'minimum': 1,
                         'unit': 'milliseconds',
                     },
@@ -333,7 +334,7 @@ def make_thing():
             'description':
             'The lamp has exceeded its safe operating temperature',
             'type': 'number',
-            'unit': 'celsius',
+            'unit': 'degree celsius',
         })
 
     return thing
@@ -387,10 +388,9 @@ public class SingleThing {
 
         JSONObject onDescription = new JSONObject();
         onDescription.put("@type", "OnOffProperty");
-        onDescription.put("label", "On/Off");
+        onDescription.put("title", "On/Off");
         onDescription.put("type", "boolean");
         onDescription.put("description", "Whether the lamp is turned on");
-        // noop for state change
         thing.addProperty(new Property(thing,
                                        "on",
                                        new Value(true),
@@ -398,14 +398,13 @@ public class SingleThing {
 
         JSONObject brightnessDescription = new JSONObject();
         brightnessDescription.put("@type", "BrightnessProperty");
-        brightnessDescription.put("label", "Brightness");
-        brightnessDescription.put("type", "number");
+        brightnessDescription.put("title", "Brightness");
+        brightnessDescription.put("type", "integer");
         brightnessDescription.put("description",
                                   "The level of light from 0-100");
         brightnessDescription.put("minimum", 0);
         brightnessDescription.put("maximum", 100);
         brightnessDescription.put("unit", "percent");
-        // noop consumer for brightness
         thing.addProperty(new Property(thing,
                                        "brightness",
                                        new Value(50),
@@ -416,16 +415,16 @@ public class SingleThing {
         JSONObject fadeProperties = new JSONObject();
         JSONObject fadeBrightness = new JSONObject();
         JSONObject fadeDuration = new JSONObject();
-        fadeMetadata.put("label", "Fade");
+        fadeMetadata.put("title", "Fade");
         fadeMetadata.put("description", "Fade the lamp to a given level");
         fadeInput.put("type", "object");
         fadeInput.put("required",
                       new JSONArray(Arrays.asList("brightness", "duration")));
-        fadeBrightness.put("type", "number");
+        fadeBrightness.put("type", "integer");
         fadeBrightness.put("minimum", 0);
         fadeBrightness.put("maximum", 100);
         fadeBrightness.put("unit", "percent");
-        fadeDuration.put("type", "number");
+        fadeDuration.put("type", "integer");
         fadeDuration.put("minimum", 1);
         fadeDuration.put("unit", "milliseconds");
         fadeProperties.put("brightness", fadeBrightness);
@@ -438,7 +437,7 @@ public class SingleThing {
         overheatedMetadata.put("description",
                                "The lamp has exceeded its safe operating temperature");
         overheatedMetadata.put("type", "number");
-        overheatedMetadata.put("unit", "celsius");
+        overheatedMetadata.put("unit", "degree celsius");
         thing.addAvailableEvent("overheated", overheatedMetadata);
 
         return thing;
@@ -667,7 +666,7 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
 
     let on_description = json!({
         "@type": "OnOffProperty",
-        "label": "On/Off",
+        "title": "On/Off",
         "type": "boolean",
         "description": "Whether the lamp is turned on"
     });
@@ -681,8 +680,8 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
 
     let brightness_description = json!({
         "@type": "BrightnessProperty",
-        "label": "Brightness",
-        "type": "number",
+        "title": "Brightness",
+        "type": "integer",
         "description": "The level of light from 0-100",
         "minimum": 0,
         "maximum": 100,
@@ -697,7 +696,7 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     )));
 
     let fade_metadata = json!({
-        "label": "Fade",
+        "title": "Fade",
         "description": "Fade the lamp to a given level",
         "input": {
             "type": "object",
@@ -707,13 +706,13 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
             ],
             "properties": {
                 "brightness": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "percent"
                 },
                 "duration": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 1,
                     "unit": "milliseconds"
                 }
@@ -726,7 +725,7 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     let overheated_metadata = json!({
         "description": "The lamp has exceeded its safe operating temperature",
         "type": "number",
-        "unit": "celsius"
+        "unit": "degree celsius"
     });
     let overheated_metadata = overheated_metadata.as_object().unwrap().clone();
     thing.add_available_event("overheated".to_owned(), overheated_metadata);
@@ -746,6 +745,7 @@ fn main() {
         None,
         None,
         Box::new(Generator),
+        None,
     );
     server.create();
     server.start();
@@ -765,7 +765,7 @@ const int lampPin = LED_BUILTIN;
 const int lampPin = 13;  // manually configure LED pin
 #endif
 
-WebThingAdapter adapter("led-lamp");
+WebThingAdapter* adapter;
 
 const char* lampTypes[] = {"OnOffSwitch", "Light", nullptr};
 ThingDevice lamp("lamp", "My Lamp", lampTypes);
@@ -794,18 +794,21 @@ void setup(void){
   Serial.println(ssid);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
+  adapter = new WebThingAdapter("led-lamp", WiFi.localIP());
 
   lamp.addProperty(&amp;lampOn);
   lamp.addProperty(&amp;lampLevel);
-  adapter.addDevice(&amp;lamp);
-  adapter.begin();
+  adapter-&gt;addDevice(&amp;lamp);
+  adapter-&gt;begin();
   Serial.println("HTTP server started");
 
+#ifdef analogWriteRange
   analogWriteRange(255);
+#endif
 }
 
 void loop(void){
-  adapter.update();
+  adapter-&gt;update();
   if (lampOn.getValue().boolean) {
     int level = map(lampLevel.getValue().number, 0, 100, 255, 0);
     analogWrite(lampPin, level);
