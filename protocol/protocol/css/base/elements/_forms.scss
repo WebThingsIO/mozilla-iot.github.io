@@ -1,0 +1,137 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+@import '../../includes/lib';
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 0 0 .25em;
+
+    &.mzp-u-inline {
+        @include bidi(((padding, 0 $spacing-sm 0 0, 0 0 0 $spacing-sm),));
+        display: inline;
+        font-weight: normal;
+    }
+}
+
+button,
+input,
+select,
+textarea {
+    @include open-sans;
+    @include text-body-md;
+}
+
+textarea {
+    height: auto;
+    max-width: 100%;
+}
+
+textarea,
+input[type='email'],
+input[type='url'],
+input[type='tel'],
+input[type='password'],
+input[type='search'],
+input[type='text'],
+input[type='number'],
+input[type='date'],
+input[type='time'] {
+    @include border-box;
+    background: $color-white;
+    border-radius: 3px;
+    border: 1px solid $color-gray-80;
+    display: inline-block;
+    line-height: 1.25;
+    padding: .25em $spacing-sm;
+
+    &:hover {
+        border-color: $color-black;
+    }
+
+    &:focus {
+        border-color: $color-black;
+        box-shadow: 0 0 0 2px $color-blue-40;
+    }
+
+    &:disabled {
+        background: $color-gray-30;
+
+        &:hover,
+        &:focus {
+            border-color: $color-gray-80;
+        }
+    }
+}
+
+select:focus {
+    box-shadow: 0 0 0 2px $color-blue-40;
+}
+
+legend {
+    @include text-display-sm;
+
+    .mzp-u-inline & {
+        @include text-body-md;
+    }
+}
+
+fieldset li {
+    margin-bottom: .5em;
+}
+
+.mzp-c-fieldnote {
+    @include text-body-sm;
+    color: $color-gray-80;
+    display: block;
+    font-weight: normal;
+}
+
+.mzp-c-form-errors {
+    background: $color-yellow-50;
+    border: 2px solid $color-yellow-60;
+    margin: 0 0 1em;
+    padding: $spacing-sm $spacing-md;
+
+    ul {
+        margin-bottom: 0;
+    }
+
+    li {
+        margin-bottom: .5em;
+    }
+}
+
+.mzp-is-error {
+    color: $color-red-60;
+
+    .mzp-c-fieldnote {
+        color: $color-red-60;
+    }
+
+    textarea,
+    input[type='email'],
+    input[type='url'],
+    input[type='tel'],
+    input[type='password'],
+    input[type='search'],
+    input[type='text'],
+    input[type='number'],
+    input[type='date'],
+    input[type='time'] {
+        border-color: $color-red-60;
+
+        &:focus {
+            box-shadow: 0 0 0 2px $color-red-50;
+        }
+    }
+
+    select,
+    input[type='checkbox'],
+    input[type='radio'] {
+        box-shadow: 0 0 0 2px $color-red-50;
+    }
+
+}

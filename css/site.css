@@ -35,179 +35,33 @@
     src: url("/fonts/opensans-bold.woff2") format("woff2"), url("/fonts/opensans-bold.woff") format("woff")
 }
 
-html {
-  font-size: 10px;
-  font-family: Open Sans, sans-serif;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  background-color: #4a4a4a;
-}
-
-header, footer {
-  background-color: #4a4a4a;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  height: 15rem;
+#wordmark {
+  background-image: url('/images/mozilla_iot_wordmark.svg');
+  background-size: 161px, 32px;
+  height: 32px;
+  width: 161px;
 }
 
 h1 {
   margin: 0;
-  padding: 1rem;
-  font-size: 3rem;
+  padding: 10px;
+  font-size: 30px;
   font-family: "Zilla Slab", "Open Sans", sans-serif;
   text-align: center;
 }
 
 h2 {
   margin: 0;
-  padding: 1rem;
-  font-size: 2rem;
+  padding: 10px;
+  font-size: 20px;
   font-family: "Zilla Slab", "Open Sans", sans-serif;
 }
 
 h3 {
   font-family: "Zilla Slab", "Open Sans", sans-serif;
-  font-size: 1.75rem;
-}
-
-.subtitle {
-  text-align: center;
-  margin-top: 0;
-}
-
-.by-mozilla {
-  display: block;
-  width: 100%;
-  text-align: right;
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.3rem;
-  font-weight: normal;
-}
-
-.button {
-  display: block;
-  background-color: #b6d806;
-  color: #4a4a4a;
-  text-transform: uppercase;
-  margin: 2rem auto;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  font-size: 1.8rem;
-  text-decoration: none;
-  font-weight: 600;
-  width: 20rem;
-}
-
-.button:hover, .button:active {
-  background-color: #d4f919;
-}
-
-header #wordmark {
-  height: 9rem;
-  margin: 2.5rem 4rem;
-}
-
-header #menu-button {
-  display: none;
-}
-
-header nav {
-  float: right;
-  padding: 0;
-  margin: 6.5rem 4rem;
-}
-
-header nav a {
-	display: inline;
-	font-size: 1.4rem;
-	line-height: 2rem;
-	color: #fff;
-	padding: 0 1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-left: solid 1px #fff;
-}
-
-header nav a:first-child {
-  border-left: none;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
-
-header nav a.selected {
-  font-weight: bold;
+  font-size: 17.5px;
 }
 
 section {
-  padding: 1rem;
-}
-
-section p {
-  font-size: 1.6rem;
-}
-
-.column {
-  width: 50%;
-  float: left;
-  text-align: left;
-  margin: 1rem auto;
-}
-
-.column p {
-  display: block;
-  max-width: 40rem;
-  margin: 1.5rem auto;
-}
-
-footer {
-  font-size: 1.3rem;
-  text-align: center;
-  color: #fff;
-  padding: 1rem;
-  clear: both;
-}
-
-footer img {
-  height: 3rem;
-}
-
-footer ul {
-  padding: 0;
-  text-align: center;
-}
-
-footer li {
-  list-style-type: none;
-  display: inline;
-  padding: 1rem;
-}
-
-footer li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-footer li a:hover {
-  text-decoration: underline;
-}
-
-footer small {
-  font-size: 1rem;
-  display: block;
-  max-width: 40rem;
-  margin: 0 auto;
-  color: #ccc;
-}
-
-footer small a {
-  color: #ccc;
+  padding: 20px;
 }

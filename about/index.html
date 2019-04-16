@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mozilla IoT - About</title>
     <link rel="icon" href="../images/icon.png" type="image/png" />
-    <link rel="stylesheet" type="text/css" href="../css/site.css" />
+    <link rel="stylesheet" type="text/css" href="/protocol/protocol/css/protocol.css" />
+    <link rel="stylesheet" type="text/css" href="/protocol/protocol/css/protocol-extra.css" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/about.css" />
-    <link rel="stylesheet" media="(max-width: 959px)" href="../css/site-mobile.css" />
-    <link rel="stylesheet" media="(max-width: 959px)" href="css/about-mobile.css" />
     <script src="/js/site.js"></script>
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@mozilla" />
@@ -19,69 +19,169 @@
     <script src="/js/analytics.js"></script>
   </head>
   <body>
-    <header>
-      <a href="/">
-        <img id="wordmark" src="/images/mozilla_iot_wordmark.png" alt="Mozilla IoT">
-      </a>
-      <nav id="main-menu" >
-        <a href="/about" class="selected">About</a>
-        <a href="/gateway">Gateway</a>
-        <a href="/things">Things</a>
-        <a href="/specification">API</a>
-        <a href="https://hacks.mozilla.org/category/web-of-things/">Blog</a>
-        <a href="/contribute">Get Involved</a>
-      </nav>
-      <a id="menu-button" name="Menu button"></a>
-    </header>
-    <section id="internet-of-things">
-      <h1>The Internet of Things</h1>
-      <div class="column">
-        <img src="../images/iot_illustration.png" alt="Illustration of connected things" />
-      </div>
-      <div class="column">
-        <p>At Mozilla, our mission is to <em>“ensure the Internet is a global public resource, open and accessible to all.”</em> The Internet of Things (IoT) is a new era of the Internet where everything around us can be connected. This presents many new opportunities and challenges.</p>
-        <p>The Mozilla IoT community is dedicated to applying Mozilla's values to the Internet of Things and working towards a decentralized IoT with new standards around security, privacy and interoperability.</p>
-      </div>
-    </section>
-    <section id="web-of-things">
-      <h1>The Web of Things</h1>
-      <div class="column">
-        <p>The “Web of Things” (WoT) is the idea of taking the lessons learned from the World Wide Web and applying them to IoT. It’s about creating a decentralized Internet of Things by giving Things URLs on the web to make them linkable and discoverable, and defining a standard data model and APIs to make them interoperable.</p>
-      </div>
-      <div class="column">
-        <img src="images/web_of_things_illustration.png" alt="Block diagram showing the web of things layered on top of existing IoT protocols" />
-      </div>
-    </section>
-    <section id="mozilla-iot">
-      <h1>Project Things <span class="by-mozilla">by Mozilla</span></h1>
-      <div>
-        <div class="column">
-          <p>Project Things is an experimental framework of software and services from Mozilla for connecting "things" to the web and will consist of three main components:</p>
-          <p><strong class="project-name">Things Gateway</strong><br />
-          An implementation of a Web of Things gateway.</p>
-          <p><strong class="project-name">Things Cloud</strong><br />
-          A collection of IoT cloud services.</p>
-          <p><strong class="project-name">Things Framework</strong><br />
-          A collection of re-useable software components for building Web Things.</p>
-          <p>You can read more in our blog post "<a href="https://hacks.mozilla.org/2017/06/building-the-web-of-things/">Building the Web of Things</a>".</p>
+
+    <div class="mzp-c-navigation">
+      <div class="mzp-c-navigation-l-content">
+        <div class="mzp-c-navigation-container">
+          <div class="mzp-c-navigation-logo"><a id="wordmark" href="/">Mozilla</a></div>
+          <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+
+          <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
+            <div class="mzp-c-navigation-menu">
+
+              <nav class="mzp-c-menu mzp-is-basic">
+                <ul class="mzp-c-menu-category-list">
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/about"><strong>About</strong></a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/gateway">Gateway</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/framework">Framework</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/community">Community</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="https://hacks.mozilla.org/category/web-of-things/">Blog</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <script src="/protocol/protocol/js/protocol-menu.js"></script>
+
+              <script>
+                Mzp.Menu.init({
+                  onMenuOpen: function() {
+                    console.log('Menu opened');
+                  },
+                  onMenuClose: function() {
+                    console.log('Menu closed');
+                  },
+                  onMenuButtonClose: function() {
+                    console.log(
+                      'Menu close button clicked');
+                  }
+                });
+              </script>
+
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <img src="images/mozilla_iot_illustration.png" alt="Illustration of Things Cloud, Things Gateway and Things Framework"/>
+      </div>
+    </div>
+
+    <section id="hero" class="mzp-c-hero  ">
+      <div class="mzp-l-content">
+        <div id="hero-body" class="mzp-c-hero-body">
+          <h1 class="mzp-c-hero-title">
+            <img id="webthings-wordmark" src="/images/mozilla_webthings_wordmark.svg" alt="Mozilla WebThings">
+          </h1>
         </div>
       </div>
     </section>
-    <footer>
-      <p>from the Emerging Technologies team at</p>
-      <a href="https://mozilla.org">
-        <img id="mozilla_wordmark" src="/images/mozilla_wordmark.png" alt="Mozilla" />
-      </a>
-      <ul>
-        <li><a href="https://www.mozilla.org/privacy/websites/">Privacy</a></li>
-        <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
-        <li><a href="mailto:iot@mozilla.com">Contact</a></li>
-        <li><a href="https://twitter.com/MozillaIoT">Twitter</a></li>
-      </ul>
-      <small>Portions of this content are ©1998–2017 by individual mozilla.org contributors. Content available under a <a href="https://www.mozilla.org/foundation/licensing/website-content/">Creative Commons license</a>.</small>
+
+    <main class="mzp-l-content">
+        <h1>Web of Things</h1>
+        <p>The <a href="https://webofthings.org/">Web of Things</a> connects real-world objects to the World Wide Web.</p>
+        <p>The idea of the Web of Things is to create a decentralized <a href="https://en.wikipedia.org/wiki/Internet_of_things">Internet of Things</a> by giving things URLs on the web to make them linkable and discoverable, and defining a standard data model and APIs to make them interoperable.</p>
+        <p>The Web of Things is intended as a unifying application layer for the Internet of Things (IoT), linking together multiple underlying IoT protocols using existing web technologies.</p>
+        <img class="illustration" src="images/web_of_things_illustration.png" alt="Horizontal application layer on top of existing IoT technologies"/>
+        <p>The Web of Things is currently undergoing standardization at the <a href="https://www.w3.org/WoT/">W3C</a>, where Mozilla is a member of the <a href="https://www.w3.org/WoT/IG/">Web of Things Interest Group</a>. Mozilla’s proposal is described by the <a href="/wot/">Web Thing API</a> specification.</p>
+
+        <h1>Mozilla WebThings</h1>
+        <p>Mozilla WebThings is Mozilla’s open source implementation of the Web of Things, including the WebThings Gateway and the WebThings framework.</p>
+
+        <h2>WebThings Gateway</h2>
+        <p><a href="/gateway/">WebThings Gateway</a> is a software distribution for smart home gateways which allows users to directly monitor and control their smart home over the web, without a middleman.</p>
+        <img class="illustration" src="/images/gateway.png" alt="gateway" />
+        <p>It provides a web-based user interface to monitor and control smart home devices, a rules engine to automate them and an add-ons system to extend the gateway with support for a wide range of existing smart home devices.</p>
+
+        <h2>WebThings Framework</h2>
+        <p><a href="/framework">WebThings Framework</a> is a collection of re-usable software components to help developers build their own web things which directly expose the <a href="/wot/">Web Thing API.</a></p>
+        <img class="illustration" src="images/framework.png" alt="framework" />
+        <p>It includes implementations in a range of programming languages including Node.js, Python, Java, Rust and C++ (for Arduino).</p>
+        <p>You can learn more about Mozilla WebThings in our <a href="/docs">online documentation</a>.</p>
+    </main>
+
+    <footer class="mzp-c-footer">
+      <div class="mzp-l-content">
+        <nav class="mzp-c-footer-primary">
+          <div class="mzp-c-footer-primary-logo"><a href="https://www.mozilla.org/">Mozilla</a></div>
+
+          <div class="mzp-c-footer-sections">
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Web of Things
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="https://www.w3.org/WoT/">W3C WoT</a></li>
+                <li><a href="https://www.w3.org/WoT/IG/">W3C WoT Interest Group</a></li>
+                <li><a href="/wot/">Web Thing API</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Mozilla WebThings
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="/gateway/">Gateway</a></li>
+                <li><a href="/framework/">Framework</a></li>
+                <li><a href="/docs/">Documentation</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Community
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="https://github.com/mozilla-iot/">GitHub</a></li>
+                <li><a href="https://discourse.mozilla.org/c/iot">Discourse</a></li>
+                <li><a href="irc://irc.mozilla.org/%23iot">IRC</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Contact Us
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="mailto:iot@mozilla.com">Email</a></li>
+                <li><a href="irc://irc.mozilla.org/%23iot">IRC</a></li>
+                <li><a href="https://twitter.com/MozillaIoT">Twitter</a></li>
+              </ul>
+            </section>
+          </div>
+        </nav>
+
+        <nav class="mzp-c-footer-secondary">
+
+          <ul class="mzp-c-footer-links-social">
+            <li><a class="twitter" href="https://twitter.com/MozillaIoT">Twitter<span> (@MozillaIoT)</span></a></li>
+          </ul>
+
+          <div class="mzp-c-footer-legal">
+            <p class="mzp-c-footer-license">
+                Portions of this content are ©1998–2019 by individual
+                mozilla.org contributors. Content available under
+                a <a rel="license" href="https://www.mozilla.org/foundation/licensing/website-content/">Creative Commons license</a>.
+            </p>
+            <ul class="mzp-c-footer-terms">
+              <li><a href="https://www.mozilla.org/privacy/websites/">Website Privacy Notice</a></li>
+              <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a></li>
+              <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
+              <li><a href="https://www.mozilla.org/privacy/websites/">Website Privacy Notice</a></li>
+              <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a></li>
+              <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </footer>
+    <script src="/protocol/protocol/js/protocol-details.js"></script>
+    <script src="/protocol/protocol/js/protocol-footer.js"></script>
   </body>
 </html>
