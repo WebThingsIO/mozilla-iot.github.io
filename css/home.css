@@ -1,36 +1,24 @@
-#intro {
-  position: relative;
-  background-color: #5d9bc7;
-  text-align: center;
-  margin: 0;
-  color: #fff;
-  height: 40rem;
-  box-sizing: border-box;
+#hero {
   background-color: #f6faff;
   background-image: url('../images/hero_image.png');
   background-position: center;
   background-size: cover;
+  padding-top: 24px;
+  padding-bottom: 0;
 }
 
-#intro h1 {
-  display: inline-block;
-  color: #4a4a4a;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 5.5rem;
+#hero-body {
+  max-width: 400px;
 }
 
-#intro h1 .by-mozilla {
-  font-size: 1.8rem;
+#webthings-wordmark {
+  height: 100px;
 }
 
-#about-button {
-  position: absolute;
-  bottom: 4rem;
-  left: 0;
-  right: 0;
-  margin: auto;
+#cta-button {
+  background-color: #b6d806;
+  color: #000;
+  border: none;
 }
 
 #gateway-section {
@@ -49,14 +37,14 @@
 
 #gateway-section img {
   display: block;
-  width: 40rem;
-  margin: 1rem auto;
+  height: 245px;
+  margin: 20px auto;
 }
 
 #framework-section {
   width: 50%;
   box-sizing: border-box;
-  background-color: #4a4a4a;
+  background-color: #4a4a4f;
   float: left;
   text-align: center;
   color: #fff;
@@ -69,32 +57,38 @@
 
 #framework-section img {
   display: block;
-  height: 24.5rem;
-  margin: 1rem auto;
-  margin-top: 2.8rem;
+  height: 245px;
+  margin: 20px auto;
 }
 
 #get-involved-section {
   clear: both;
-  background-color: #5d9bc7;
+  background-color: #45a1ff;
   text-align: center;
   color: #fff;
 }
 
+#get-involved-button {
+  clear: both;
+  display: block;
+  width: 150px;
+  margin: 0 auto;
+}
+
 #contributions {
-  width: 96rem;
+  width: 960px;
   margin: 0 auto;
 }
 
 .contribution {
-  width: 30rem;
+  width: 300px;
   float: left;
-  margin: 1rem;
+  margin: 10px;
 }
 
 .contribution img {
-  width: 19.2rem;
-  margin: 1rem;
+  width: 192px;
+  margin: 10px;
 }
 
 #get-involved-section .button {

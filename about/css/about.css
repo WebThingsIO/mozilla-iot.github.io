@@ -1,63 +1,26 @@
-section {
-  overflow: hidden;
+#hero {
+  background-color: #f6faff;
+  background-image: url('/images/hero_image.png');
+  background-position: center;
+  background-size: cover;
+  padding-top: 24px;
+  padding-bottom: 0;
 }
 
-section p {
-  font-size: 1.5rem;
-}
-
-.project-name {
-  font-family: "Zilla Slab", "Open Sans", sans-serif;
-  font-size: 1.8rem;
-}
-
-#internet-of-things {
-  background-color: #5d9bc7;
-  color: #fff;
-}
-
-#internet-of-things img {
-  display: block;
-  width: 42.5rem;
-  margin: 1rem auto;
-}
-
-#web-of-things {
-  background-color: #fff;
-}
-
-#web-of-things h1, #web-of-things p {
-  color: #4d4d4d;
-}
-
-#web-of-things img {
-  width: 50rem;
-  display: block;
-  margin: 1rem auto;
-}
-
-#mozilla-iot {
-  background-color: #5d9bc7;
-  color: #fff;
+#hero h1 {
   text-align: center;
 }
 
-#mozilla-iot h1 {
-  display: inline-block;
-  text-align: center;
+h1 {
+  text-align: left;
 }
 
-#mozilla-iot img {
+h1, h2 {
+  padding-left: 0;
+}
+
+.illustration {
   display: block;
-  width: 30rem;
-  margin: 1rem auto;
-}
-
-#mozilla-iot a {
-  color: #cee1ee;
-  text-decoration: none;
-}
-
-#mozilla-iot a:hover {
-  text-decoration: underline;
+  height: 245px;
+  margin: 20px auto;
 }

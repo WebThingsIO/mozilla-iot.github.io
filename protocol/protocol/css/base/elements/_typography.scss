@@ -1,0 +1,60 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+@import '../../includes/lib';
+
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-weight: bold;
+    margin: 0 0 .5em;
+}
+
+// Mozilla theme class for headlines using Zilla.
+.mzp-t-mozilla {
+    h1, h2, h3, h4 {
+        @include zilla-slab;
+    }
+}
+
+// Firefox theme class for headlines using Open Sans.
+.mzp-t-firefox {
+    h1, h2, h3, h4 {
+        @include open-sans;
+    }
+}
+
+// Type scale defined in includes/mixins/_typography.scss
+h1 {
+    @include text-display-xxl;
+    margin-bottom: .25em;
+}
+
+h2 {
+    @include text-display-xl;
+    margin-bottom: .45em;
+}
+
+h3 {
+    @include text-display-lg;
+}
+
+h4 {
+    @include text-display-md;
+}
+
+h5, h6 {
+    @include text-display-sm;
+}
+
+p,
+ul,
+ol,
+dl,
+table {
+    margin: 0 0 1.25em;
+}
+
+code {
+    font-size: .875em;
+}

@@ -1,0 +1,14 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+// The custom X-LocaleSpecific font family is defined with a @font-face rule in
+// locale-specific stylesheets which can be found at /media/css/l10n/. See
+// /docs/l10n.rst for details.
+$font-open-sans: 'Open Sans', X-LocaleSpecific, sans-serif;
+$font-zilla-slab: 'Zilla Slab', 'Open Sans', X-LocaleSpecific, sans-serif;
+
+$base-font-stack: $font-open-sans;
+$base-font-size: 100%;
+$base-line-height: 1.5;
