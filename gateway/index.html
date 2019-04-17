@@ -2,8 +2,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mozilla IoT - Things Gateway</title>
+    <title>Mozilla IoT - WebThings Gateway</title>
     <link rel="icon" href="../images/icon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="/protocol/protocol/css/protocol.css" />
+    <link rel="stylesheet" type="text/css" href="/protocol/protocol/css/protocol-extra.css" />
     <link rel="stylesheet" type="text/css" href="../css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/gateway.css" />
     <link rel="stylesheet" media="(max-width: 959px)" href="../css/site-mobile.css" />
@@ -11,8 +13,8 @@
     <script src="/js/site.js"></script>
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@mozilla" />
-    <meta property="og:title" content="Things Gateway by Mozilla" />
-    <meta property="og:description" content="Build your own Web of Things Gateway" />
+    <meta property="og:title" content="WebThings Gateway by Mozilla" />
+    <meta property="og:description" content="Build your own Web of Things gateway" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iot.mozilla.org/gateway" />
     <meta property="og:image" content="https://iot.mozilla.org/images/gateway_banner.png" />
@@ -35,126 +37,220 @@
       }
     </script>
   </head>
+
   <body>
-    <header>
-      <a href="/">
-        <img id="wordmark" src="/images/mozilla_iot_wordmark.png" alt="Mozilla IoT">
-      </a>
-      <nav id="main-menu" >
-        <a href="/about">About</a>
-        <a href="/gateway" class="selected">Gateway</a>
-        <a href="/things">Things</a>
-        <a href="/specification">API</a>
-        <a href="https://hacks.mozilla.org/category/web-of-things/">Blog</a>
-        <a href="/contribute">Get Involved</a>
-      </nav>
-      <a id="menu-button"></a>
-    </header>
-    <section id="intro">
-      <h2><strong>Things</strong> Gateway <span class="by-mozilla">by Mozilla</span></h2>
-      <div id="carousel">
-        <section id="carousel-section1" class="selected carousel-section">
-          <div class="carousel-screenshot">
-            <img class="carousel-screenshot-image" src="images/things_ui_screenshot.png" alt="Things UI Screenshot" />
-          </div>
-          <div class="carousel-description">
-            <div class="carousel-description-wrapper">
-              <h3 class="carousel-heading">Things UI</h3>
-              <p class="carousel-paragraph">Monitor and control all your smart home devices via a unified web interface.</p>
+
+    <div class="mzp-c-navigation">
+      <div class="mzp-c-navigation-l-content">
+        <div class="mzp-c-navigation-container">
+          <div class="mzp-c-navigation-logo"><a id="wordmark" href="/">Mozilla</a></div>
+          <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+
+          <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
+            <div class="mzp-c-navigation-menu">
+
+              <nav class="mzp-c-menu mzp-is-basic">
+                <ul class="mzp-c-menu-category-list">
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/about">About</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/gateway"><strong>Gateway</strong></a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/framework">Framework</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="/community">Community</a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="https://hacks.mozilla.org/category/web-of-things/">Blog</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <script src="/protocol/protocol/js/protocol-menu.js"></script>
+
+              <script>
+                Mzp.Menu.init({
+                  onMenuOpen: function() {
+                    console.log('Menu opened');
+                  },
+                  onMenuClose: function() {
+                    console.log('Menu closed');
+                  },
+                  onMenuButtonClose: function() {
+                    console.log(
+                      'Menu close button clicked');
+                  }
+                });
+              </script>
+
             </div>
           </div>
-        </section>
-        <section id="carousel-section2" class="carousel-section">
-          <div class="carousel-screenshot">
-            <img class="carousel-screenshot-image" src="images/rules_engine_screenshot.png" alt="Rules Engine Screenshot" />
-          </div>
-          <div class="carousel-description">
-            <div class="carousel-description-wrapper">
-              <h3 class="carousel-heading">Rules Engine</h3>
-              <p class="carousel-paragraph">Create "if this then that" style rules to automate your home with a simple drag and drop interface.</p>
-            </div>
-          </div>
-        </section>
-        <section id="carousel-section3" class="carousel-section">
-          <div class="carousel-screenshot">
-            <img class="carousel-screenshot-image" src="images/floorplan_screenshot.png" alt="Floorplan Screenshot" />
-          </div>
-          <div class="carousel-description">
-            <div class="carousel-description-wrapper">
-              <h3 class="carousel-heading">Floorplan</h3>
-              <p class="carousel-paragraph">Lay out all your devices on an interactive floorplan of your home for at-a-glance status and control.</p>
-            </div>
-          </div>
-        </section>
-        <section id="carousel-section4" class="carousel-section">
-          <div class="carousel-screenshot">
-            <img class="carousel-screenshot-image" src="images/smart_assistant_screenshot.png" alt="Smart Assistant Screenshot" />
-          </div>
-          <div class="carousel-description">
-            <div class="carousel-description-wrapper">
-              <h3 class="carousel-heading">Smart Assistant</h3>
-              <p class="carousel-paragraph">Control your home with your voice or written commands via a chat style interface.</p>
-            </div>
-          </div>
-        </section>
-        <section id="carousel-section5" class="carousel-section">
-          <div class="carousel-screenshot">
-            <img class="carousel-screenshot-image" src="images/addons_screenshot.png" alt="Add-ons Screenshot" />
-          </div>
-          <div class="carousel-description">
-            <div class="carousel-description-wrapper">
-              <h3 class="carousel-heading">Add-ons</h3>
-              <p class="carousel-paragraph">Add compatibiltiy with more devices and protocols with adapter add-ons.</p>
-            </div>
-          </div>
-        </section>
-        <ul id="carousel-tabs">
-          <li><a id="carousel-tab1" href="#carousel-section1" data-section="carousel-section1" class="selected"></a></li>
-          <li><a id="carousel-tab2" href="#carousel-section2" data-section="carousel-section2"></a></li>
-          <li><a id="carousel-tab3" href="#carousel-section3" data-section="carousel-section3"></a></li>
-          <li><a id="carousel-tab4" href="#carousel-section4" data-section="carousel-section4"></a></li>
-          <li><a id="carousel-tab5" href="#carousel-section5" data-section="carousel-section5"></a></li>
-        </ul>
-      </div>
-    </section>
-    <section id="instructions">
-      <div id="instructions-content">
-        <h1>Build Your Own Web of Things Gateway</h1>
-        <p class="subtitle">Directly monitor and control your home over the web</p>
-        <div id="instruction-1" class="instruction">
-          <h3>Raspberry Pi</h3>
-          <p><strong>Get your hands on a Raspberry Pi<sup>®</sup></strong> single board computer. The latest <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3</a> has WiFi and Bluetooth support built in, as well as access to GPIO ports for direct hardware connections. This is not essential as you can use alternative developer boards, or even your laptop or desktop computer, but it will currently provide the best experience. </p>
-          <img src="../images/raspberry_pi.png" alt="Illustration of Raspberry Pi" />
-        </div>
-        <div id="instruction-2" class="instruction">
-          <h3>USB Dongles</h3>
-          <p><strong>To use your Web of Things gateway with other wireless protocols like ZigBee and Z-Wave you will need USB dongles.</strong> See the <a href="https://github.com/mozilla-iot/wiki/wiki/Supported-Hardware">wiki</a> for a list of compatible USB dongles and smart home devices.</p>
-          <img src="images/usb_dongle.png" alt="Illustration of a USB dongle" />
-        </div>
-        <div id="instruction-3" class="instruction">
-          <h3>Flash SD Card</h3>
-          <p>
-            <strong>Download the pre-built Raspberry Pi OS image from Mozilla and <a href="https://www.raspberrypi.org/documentation/installation/installing-images/">flash it onto an SD card.</a></strong> Please note that this is experimental pre-release software and at this prototype stage is not ready for production use. It is intended as an early preview for hackers, makers and web developers to get their hands on with the Web of Things.<br />
-            <a id="download-button" class="button" href="https://github.com/mozilla-iot/gateway/releases/download/0.7.0/gateway-0.7.0.img.zip" onclick="trackOutboundLink('https://github.com/mozilla-iot/gateway/releases/download/0.7.0/gateway-0.7.0.img.zip'); return false;">Download 0.7.0</a>
-          </p>
-          <img src="images/sd_card.png" alt="Illustration of an SD card" />
-          <p>(Alternatively, if you'd prefer to just try out the software on your PC you can follow the <a href="https://github.com/mozilla-iot/gateway/blob/master/README.md">instructions on GitHub</a> to checkout the code and build it yourself.)</p>
-          <p><strong>For a more detailed How-To guide and a tour of the gateway's features, see our <a href="https://hacks.mozilla.org/2018/02/how-to-build-your-own-private-smart-home-with-a-raspberry-pi-and-mozillas-things-gateway">blog post</a> on Mozilla Hacks.</strong></p>
         </div>
       </div>
-    </section>
-    <footer>
-      <p>from the Emerging Technologies team at</p>
-      <a href="https://mozilla.org">
-        <img id="mozilla_wordmark" src="/images/mozilla_wordmark.png" alt="Mozilla" />
-      </a>
-      <ul>
-        <li><a href="https://www.mozilla.org/privacy/websites/">Privacy</a></li>
-        <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
-        <li><a href="mailto:iot@mozilla.com">Contact</a></li>
-        <li><a href="https://twitter.com/MozillaIoT">Twitter</a></li>
-      </ul>
-      <small>Portions of this content are ©1998–2017 by individual mozilla.org contributors. Content available under a <a href="https://www.mozilla.org/foundation/licensing/website-content/">Creative Commons license</a>. "Raspberry Pi" is a trademark of the Raspberry Pi Foundation. Raspberry Pi illustration derived from <a href="https://commons.wikimedia.org/wiki/File:Raspberry_Pi_B%2B_illustration.svg">source work</a> licensed <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA-3.0</a>.</small>
+    </div>
+
+    <main>
+      <section id="intro">
+        <img id="webthings-gateway-wordmark" src="images/webthings_gateway_wordmark.svg" alt="WebThings Gateway" />
+        <div id="carousel">
+          <section id="carousel-section1" class="selected carousel-section">
+            <div class="carousel-screenshot">
+              <img class="carousel-screenshot-image" src="images/things_ui_screenshot.png" alt="Things UI Screenshot" />
+            </div>
+            <div class="carousel-description">
+              <div class="carousel-description-wrapper">
+                <h3 class="carousel-heading">Things UI</h3>
+                <p class="carousel-paragraph">Monitor and control all your smart home devices via a unified web interface.</p>
+              </div>
+            </div>
+          </section>
+          <section id="carousel-section2" class="carousel-section">
+            <div class="carousel-screenshot">
+              <img class="carousel-screenshot-image" src="images/rules_engine_screenshot.png" alt="Rules Engine Screenshot" />
+            </div>
+            <div class="carousel-description">
+              <div class="carousel-description-wrapper">
+                <h3 class="carousel-heading">Rules Engine</h3>
+                <p class="carousel-paragraph">Create "if this then that" style rules to automate your home with a simple drag and drop interface.</p>
+              </div>
+            </div>
+          </section>
+          <section id="carousel-section3" class="carousel-section">
+            <div class="carousel-screenshot">
+              <img class="carousel-screenshot-image" src="images/floorplan_screenshot.png" alt="Floorplan Screenshot" />
+            </div>
+            <div class="carousel-description">
+              <div class="carousel-description-wrapper">
+                <h3 class="carousel-heading">Floorplan</h3>
+                <p class="carousel-paragraph">Lay out all your devices on an interactive floorplan of your home for at-a-glance status and control.</p>
+              </div>
+            </div>
+          </section>
+          <section id="carousel-section4" class="carousel-section">
+            <div class="carousel-screenshot">
+              <img class="carousel-screenshot-image" src="images/smart_assistant_screenshot.png" alt="Smart Assistant Screenshot" />
+            </div>
+            <div class="carousel-description">
+              <div class="carousel-description-wrapper">
+                <h3 class="carousel-heading">Smart Assistant</h3>
+                <p class="carousel-paragraph">Control your home with your voice or written commands via a chat style interface.</p>
+              </div>
+            </div>
+          </section>
+          <section id="carousel-section5" class="carousel-section">
+            <div class="carousel-screenshot">
+              <img class="carousel-screenshot-image" src="images/addons_screenshot.png" alt="Add-ons Screenshot" />
+            </div>
+            <div class="carousel-description">
+              <div class="carousel-description-wrapper">
+                <h3 class="carousel-heading">Add-ons</h3>
+                <p class="carousel-paragraph">Add compatibiltiy with more devices and protocols with adapter add-ons.</p>
+              </div>
+            </div>
+          </section>
+          <ul id="carousel-tabs">
+            <li><a id="carousel-tab1" href="#carousel-section1" data-section="carousel-section1" class="selected"></a></li>
+            <li><a id="carousel-tab2" href="#carousel-section2" data-section="carousel-section2"></a></li>
+            <li><a id="carousel-tab3" href="#carousel-section3" data-section="carousel-section3"></a></li>
+            <li><a id="carousel-tab4" href="#carousel-section4" data-section="carousel-section4"></a></li>
+            <li><a id="carousel-tab5" href="#carousel-section5" data-section="carousel-section5"></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="instructions">
+        <h1>Build Your Own WebThings Gateway</h1>
+        <h2 id="webthings-gateway-heading"><strong>WebThings</strong> Gateway</h2>
+        <p>for Rapsberry Pi</p>
+        <img src="/images/raspberry_pi.png" alt="Raspberry Pi"/>
+        <a id="download-button" href="https://github.com/mozilla-iot/gateway/releases/download/0.8.0/gateway-0.8.0.img.zip" onclick="trackOutboundLink('https://github.com/mozilla-iot/gateway/releases/download/0.8.0/gateway-0.8.0.img.zip'); return false;" class="mzp-c-button mzp-t-secondary mzp-t-small">
+          Download 0.8
+        </a><br />
+        <a href="https://mozilla-iot.github.io/docs/gateway-getting-started-guide.html">Getting Started Guide</a>
+
+      </section>
+    </main>
+
+    <footer class="mzp-c-footer">
+      <div class="mzp-l-content">
+        <nav class="mzp-c-footer-primary">
+          <div class="mzp-c-footer-primary-logo"><a href="https://www.mozilla.org/">Mozilla</a></div>
+
+          <div class="mzp-c-footer-sections">
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Web of Things
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="https://www.w3.org/WoT/">W3C WoT</a></li>
+                <li><a href="https://www.w3.org/WoT/IG/">W3C WoT Interest Group</a></li>
+                <li><a href="/wot/">Web Thing API</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Mozilla WebThings
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="/gateway/">Gateway</a></li>
+                <li><a href="/framework/">Framework</a></li>
+                <li><a href="/docs/">Documentation</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Community
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="https://github.com/mozilla-iot/">GitHub</a></li>
+                <li><a href="https://discourse.mozilla.org/c/iot">Discourse</a></li>
+                <li><a href="irc://irc.mozilla.org/%23iot">IRC</a></li>
+              </ul>
+            </section>
+
+            <section class="mzp-c-footer-section">
+              <h5 class="mzp-c-footer-heading">
+        Contact Us
+      </h5>
+              <ul class="mzp-c-footer-list">
+                <li><a href="mailto:iot@mozilla.com">Email</a></li>
+                <li><a href="irc://irc.mozilla.org/%23iot">IRC</a></li>
+                <li><a href="https://twitter.com/MozillaIoT">Twitter</a></li>
+              </ul>
+            </section>
+          </div>
+        </nav>
+
+        <nav class="mzp-c-footer-secondary">
+
+          <ul class="mzp-c-footer-links-social">
+            <li><a class="twitter" href="https://twitter.com/MozillaIoT">Twitter<span> (@MozillaIoT)</span></a></li>
+          </ul>
+
+          <div class="mzp-c-footer-legal">
+            <p class="mzp-c-footer-license">
+                Portions of this content are ©1998–2019 by individual
+                mozilla.org contributors. Content available under
+                a <a rel="license" href="https://www.mozilla.org/foundation/licensing/website-content/">Creative Commons license</a>. "Raspberry Pi" is a trademark of the Raspberry Pi Foundation. Raspberry Pi illustration derived from <a href="https://commons.wikimedia.org/wiki/File:Raspberry_Pi_B%2B_illustration.svg">source work</a> licensed <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA-3.0</a>.
+            </p>
+            <ul class="mzp-c-footer-terms">
+              <li><a href="https://www.mozilla.org/privacy/websites/">Website Privacy Notice</a></li>
+              <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a></li>
+              <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </footer>
+    <script src="/protocol/protocol/js/protocol-details.js"></script>
+    <script src="/protocol/protocol/js/protocol-footer.js"></script>
+
   </body>
+
+
 </html>
