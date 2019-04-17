@@ -1,53 +1,36 @@
-#things-framework-intro {
-  background-color: #5d9bc7;
+#hero {
+  background-color: #45a1ff;
   color: #fff;
   text-align: center;
   overflow: hidden;
 }
 
-#things-framework-intro h2 {
-  display: inline-block;
-  font-size: 2.6rem;
-  font-weight: normal;
-}
-
-#things-framework-intro p {
-
-}
-
-#things-framework-intro img {
+#webthings-framework-wordmark {
+  width: 364px;
   display: block;
-  width: 30rem;
-  margin: 1rem auto;
+  margin: 20px auto 40px auto;
 }
 
-#things-framework-intro a {
-  color: white;
-}
-
-#things-framework {
-  background-color: #fff;
-  color: #1a1a1a;
+#things-illustration {
+  display: block;
+  width: 300px;
+  margin: 20px auto;
 }
 
 #things-framework-content {
-  width: 83.5rem;
+  width: 835px;
   margin: 0 auto;
   overflow: hidden;
 }
 
-#things-framework h1, #things-framework h2, #things-framework h3 {
-  color: #4d4d4d;
-}
-
 #installation {
   width: 100%;
-  font-size: 1.4rem;
+  font-size: 16px;
 }
 
 #example {
   width: 100%;
-  font-size: 1.4rem;
+  font-size: 16px;
 }
 
 .tabs {
@@ -63,11 +46,11 @@
 .tabs a {
   display: inline-block;
   background-color: transparent;
-  height: 3rem;
-  line-height: 3rem;
+  height: 30px;
+  line-height: 30px;
   text-decoration: none;
   color: #000;
-  padding: 0.5rem 1rem;
+  padding: 5px 10px;
 }
 
 .tabs a.selected {
@@ -75,13 +58,13 @@
 }
 
 .tab-sections {
-  padding: 0 2rem 0 0;
+  padding: 0 20px 0 0;
 }
 
 .tab-sections section {
   display: none;
   background-color: #ccc;
-  padding: 1rem 2rem;
+  padding: 10px 20px;
 }
 
 .tab-sections section.selected {
@@ -93,34 +76,29 @@ section h2 {
 }
 
 pre {
-  max-height: 50rem;
+  max-height: 500px;
   overflow: scroll;
   background-color: #4a4a4a;
   color: #fff;
-  padding: 1rem;
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
 }
 
-#libraries, #libraries-3p {
+#learn-more-button {
+  display: block;
+  width: 150px;
+  margin: 20px auto 0 auto;
   text-align: center;
-}
-
-#libraries h2, #libraries-3p h2 {
-  text-align: left;
 }
 
 .library {
   display: inline-block;
-  width: 16rem;
+  width: 100px;
   text-align: center;
+  padding: 14px
 }
 
 .library img {
-  width: 10rem;
-}
-
-.library .button {
-  text-align: center;
-  width: 12rem;
+  width: 100px;
 }
