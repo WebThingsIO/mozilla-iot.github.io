@@ -1,0 +1,14 @@
+#webthings-framework-wordmark {
+  width: calc(100% - 40px);
+  max-width: 364px;
+}
+
+#things-illustration {
+  width: calc(100% - 40px);
+  max-width: 400px;
+}
+
+#things-framework-content {
+  width: 100%;
+  min-width: 320px;
+}
