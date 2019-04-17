@@ -1,0 +1,30 @@
+#get-involved-section {
+  clear: both;
+  background-color: #45a1ff;
+  text-align: center;
+  color: #fff;
+}
+
+#contributions {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.contribution {
+  width: 300px;
+  float: left;
+  margin: 10px;
+}
+
+.contribution img {
+  width: 192px;
+  margin: 10px;
+}
+
+#get-involved-section p {
+  clear: both;
+}
+
+#get-involved-section a {
+  color: #fff;
+}
