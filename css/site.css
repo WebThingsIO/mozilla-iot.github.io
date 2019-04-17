@@ -45,7 +45,7 @@
 h1 {
   margin: 0;
   padding: 10px;
-  font-size: 30px;
+  font-size: 36px;
   font-family: "Zilla Slab", "Open Sans", sans-serif;
   text-align: center;
 }
@@ -53,13 +53,13 @@ h1 {
 h2 {
   margin: 0;
   padding: 10px;
-  font-size: 20px;
+  font-size: 24px;
   font-family: "Zilla Slab", "Open Sans", sans-serif;
 }
 
 h3 {
-  font-family: "Zilla Slab", "Open Sans", sans-serif;
-  font-size: 17.5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
 }
 
 section {

@@ -26,11 +26,10 @@
   box-sizing: border-box;
   background-color: #fff;
   float: left;
-  color: #4a4a4a;
   text-align: center;
 }
 
-#gateway-section h1 {
+#gateway-section h2 {
   font-weight: normal;
   display: inline-block;
 }
@@ -50,7 +49,7 @@
   color: #fff;
 }
 
-#framework-section h1 {
+#framework-section h2 {
   font-weight: normal;
   display: inline-block;
 }
