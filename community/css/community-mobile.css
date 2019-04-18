@@ -1,0 +1,10 @@
+#contributions {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contribution {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+}
