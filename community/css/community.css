@@ -1,3 +1,20 @@
+#hero {
+  background-image: url('../images/community_hero_image.jpg');
+  background-position: center;
+  background-size: cover;
+  padding-top: 24px;
+  padding-bottom: 0;
+  color: #fff;
+}
+
+#hero-body {
+  max-width: 400px;
+}
+
+#webthings-wordmark {
+  margin: 20px;
+}
+
 #get-involved-section {
   clear: both;
   background-color: #45a1ff;
@@ -27,4 +44,16 @@
 
 #get-involved-section a {
   color: #fff;
+}
+
+#events-heading {
+  text-align: center;
+}
+
+.mzp-c-card {
+  float: left;
+}
+
+.mzp-c-card h2 {
+  padding: 0;
 }
