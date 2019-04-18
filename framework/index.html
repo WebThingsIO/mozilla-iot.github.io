@@ -1,4 +1,4 @@
-<html>
+<html class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/framework.css" />
     <link rel="stylesheet" type="text/css" href="css/prism.css" />
-    <link rel="stylesheet" media="(max-width: 959px)" href="../css/site-mobile.css" />
     <link rel="stylesheet" media="(max-width: 959px)" href="css/framework-mobile.css" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@mozilla" />
@@ -18,7 +17,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iot.mozilla.org/framework" />
     <meta property="og:image" content="https://iot.mozilla.org/framework/images/webthings_framework_banner.png" />
-    <script src="/js/site.js"></script>
+    <script src="/protocol/protocol/js/protocol-base.js"></script>
+    <script src="/protocol/protocol/js/protocol-utils.js"></script>
+    <script src="/protocol/protocol/js/protocol-supports.js"></script>
     <script src="/js/analytics.js"></script>
     <script src="js/prism.js"></script>
     <script src="js/tabs.js"></script>
@@ -54,21 +55,10 @@
                 </ul>
               </nav>
 
-              <script src="/protocol/protocol/js/protocol-menu.js"></script>
+              <script src="/protocol/protocol/js/protocol-navigation.js"></script>
 
               <script>
-                Mzp.Menu.init({
-                  onMenuOpen: function() {
-                    console.log('Menu opened');
-                  },
-                  onMenuClose: function() {
-                    console.log('Menu closed');
-                  },
-                  onMenuButtonClose: function() {
-                    console.log(
-                      'Menu close button clicked');
-                  }
-                });
+                Mzp.Navigation.init();
               </script>
 
             </div>

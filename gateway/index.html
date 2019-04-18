@@ -1,4 +1,4 @@
-<html>
+<html class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/protocol/protocol/css/protocol-extra.css" />
     <link rel="stylesheet" type="text/css" href="../css/site.css" />
     <link rel="stylesheet" type="text/css" href="css/gateway.css" />
-    <link rel="stylesheet" media="(max-width: 959px)" href="../css/site-mobile.css" />
     <link rel="stylesheet" media="(max-width: 959px)" href="css/gateway-mobile.css" />
-    <script src="/js/site.js"></script>
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@mozilla" />
     <meta property="og:title" content="WebThings Gateway by Mozilla" />
@@ -18,6 +16,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iot.mozilla.org/gateway" />
     <meta property="og:image" content="https://iot.mozilla.org/gateway/images/webthings_gateway_banner.png" />
+    <script src="/protocol/protocol/js/protocol-base.js"></script>
+    <script src="/protocol/protocol/js/protocol-utils.js"></script>
+    <script src="/protocol/protocol/js/protocol-supports.js"></script>
     <script src="/js/analytics.js"></script>
     <script src="js/carousel.js"></script>
     <script>
@@ -69,21 +70,10 @@
                 </ul>
               </nav>
 
-              <script src="/protocol/protocol/js/protocol-menu.js"></script>
+              <script src="/protocol/protocol/js/protocol-navigation.js"></script>
 
               <script>
-                Mzp.Menu.init({
-                  onMenuOpen: function() {
-                    console.log('Menu opened');
-                  },
-                  onMenuClose: function() {
-                    console.log('Menu closed');
-                  },
-                  onMenuButtonClose: function() {
-                    console.log(
-                      'Menu close button clicked');
-                  }
-                });
+                Mzp.Navigation.init();
               </script>
 
             </div>
