@@ -1,1 +1,2 @@
 /docs/*		http://docs.iot.mozilla.org/:splat	200
+/schemas/*	http://schemas.iot.mozilla.org/:splat	200
