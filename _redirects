@@ -1,0 +1,3 @@
+/docs/*		https://docs.iot.mozilla.org/:splat	200
+/schemas/*	https://schemas.iot.mozilla.org/:splat	200
+/wot/*		https://wot.iot.mozilla.org/:splat	200
