@@ -28,7 +28,12 @@
   transform: none;
 }
 
-#instructions img {
+.download-box {
+  clear: both;
+  width: 100%;
+}
+
+.download-box img {
   width: calc(100% - 20px);
   max-width: 300px;
   height: auto;
