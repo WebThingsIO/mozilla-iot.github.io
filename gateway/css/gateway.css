@@ -101,12 +101,18 @@ section p {
   text-align: center;
 }
 
-#instructions img {
+.download-box {
+  width: calc(50% - 40px);
+  float: left;
+  padding-bottom: 40px;
+}
+
+.download-box img {
   display: block;
   margin: 20px auto;
   height: 200px;
 }
 
-#download-button {
+.download-button {
   margin: 10px auto;
 }
