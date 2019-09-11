@@ -70,7 +70,7 @@
     <main>
       <section id="hero">
         <img id="webthings-framework-wordmark" src="images/webthings_framework_wordmark.svg" alt="WebThings Framework" />
-        <img id="things-illustration" src="images/things.png" />
+        <img id="things-illustration" src="images/things.png" alt="Things illustration" />
       </section>
 
       <section id="things-framework">
@@ -119,7 +119,7 @@
                 <p>
                   Cargo:
                   <pre><code class="language-toml">[dependencies]
-  webthing = "0.11"</code></pre>
+  webthing = "0.12"</code></pre>
                 </p>
               </section>
               <section id="installation-arduino">
@@ -290,7 +290,12 @@
 
 
   def make_thing():
-      thing = Thing('My Lamp', ['OnOffSwitch', 'Light'], 'A web connected lamp')
+      thing = Thing(
+          'urn:dev:ops:my-lamp-1234',
+          'My Lamp',
+          ['OnOffSwitch', 'Light'],
+          'A web connected lamp'
+      )
 
       thing.add_property(
           Property(thing,
@@ -397,7 +402,8 @@
 
   public class SingleThing {
       public static Thing makeThing() {
-          Thing thing = new Thing("My Lamp",
+          Thing thing = new Thing("urn:dev:ops:my-lamp-1234",
+                                  "My Lamp",
                                   new JSONArray(Arrays.asList("OnOffSwitch",
                                                               "Light")),
                                   "A web connected lamp");
@@ -675,6 +681,7 @@
 
   fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
       let mut thing = BaseThing::new(
+          "urn:dev:ops:my-lamp-1234".to_owned(),
           "My Lamp".to_owned(),
           Some(vec!["OnOffSwitch".to_owned(), "Light".to_owned()]),
           Some("A web connected lamp".to_owned()),
@@ -761,6 +768,7 @@
           None,
           None,
           Box::new(Generator),
+          None,
           None,
       );
       server.create();
