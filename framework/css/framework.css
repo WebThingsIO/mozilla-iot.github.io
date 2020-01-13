@@ -102,3 +102,7 @@ pre {
 .library img {
   width: 100px;
 }
+
+#libraries, #libraries-3p {
+  text-align: center;
+}
