@@ -1,6 +1,6 @@
 /docs/*		https://docs.iot.mozilla.org/:splat		200
 /docs		https://docs.iot.mozilla.org/			200
 /schemas/*	https://schemas.iot.mozilla.org/:splat	        200
-/schemas	/schemas/					302
+/schemas	https://schemas.iot.mozilla.org/:splat          200
 /wot/*		https://wot.iot.mozilla.org/:splat		200
 /wot		https://wot.iot.mozilla.org/			200
