@@ -101,10 +101,10 @@ section p {
   text-align: center;
 }
 
-.download-box {
-  width: calc(50% - 40px);
-  padding: 0 0 40px 0;
-  margin: 0 auto;
+#download-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 
 .download-box img {

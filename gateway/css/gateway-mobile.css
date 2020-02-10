@@ -28,6 +28,11 @@
   transform: none;
 }
 
+#download-grid {
+  grid-template-columns: none;
+  width: calc(100% - 40px);
+}
+
 .download-box {
   clear: both;
   width: 100%;
@@ -35,6 +40,6 @@
 
 .download-box img {
   width: calc(100% - 20px);
-  max-width: 300px;
+  max-width: 200px;
   height: auto;
 }
