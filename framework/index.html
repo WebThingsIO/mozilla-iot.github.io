@@ -120,7 +120,7 @@
                 <p>
                   Cargo:
                   <pre><code class="language-toml">[dependencies]
-  webthing = "0.12"</code></pre>
+  webthing = "0.13"</code></pre>
                 </p>
               </section>
               <section id="installation-arduino">
@@ -519,50 +519,23 @@ public class SingleThing {
 }</code></pre>
               </section>
               <section id="example-rust">
-                <pre><code class="language-rust">extern crate env_logger;
-#[macro_use]
-extern crate serde_json;
-extern crate uuid;
-extern crate webthing;
-
+                <pre><code class="language-rust">use actix_rt;
+use serde_json::json;
 use std::sync::{Arc, RwLock, Weak};
 use std::{thread, time};
 use uuid::Uuid;
 use webthing::{
-    Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Event, Thing, ThingsType,
-    WebThingServer,
+    Action, BaseAction, BaseEvent, BaseProperty, BaseThing, Thing, ThingsType, WebThingServer,
 };
 
 use webthing::server::ActionGenerator;
-
-pub struct OverheatedEvent(BaseEvent);
-
-impl OverheatedEvent {
-    fn new(data: Option&lt;serde_json::Value&gt;) -&gt; OverheatedEvent {
-        OverheatedEvent(BaseEvent::new("overheated".to_owned(), data))
-    }
-}
-
-impl Event for OverheatedEvent {
-    fn get_name(&amp;self) -&gt; String {
-        self.0.get_name()
-    }
-
-    fn get_data(&amp;self) -&gt; Option&lt;serde_json::Value&gt; {
-        self.0.get_data()
-    }
-
-    fn get_time(&amp;self) -&gt; String {
-        self.0.get_time()
-    }
-}
 
 pub struct FadeAction(BaseAction);
 
 impl FadeAction {
     fn new(
         input: Option&lt;serde_json::Map&lt;String, serde_json::Value&gt;&gt;,
-        thing: Weak&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;,
+        thing: Weak&lt;RwLock&lt;Box&lt;dyn Thing&gt;&gt;&gt;,
     ) -&gt; FadeAction {
         FadeAction(BaseAction::new(
             Uuid::new_v4().to_string(),
@@ -606,7 +579,7 @@ impl Action for FadeAction {
         self.0.get_input()
     }
 
-    fn get_thing(&amp;self) -&gt; Option&lt;Arc&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;&gt; {
+    fn get_thing(&amp;self) -&gt; Option&lt;Arc&lt;RwLock&lt;Box&lt;dyn Thing&gt;&gt;&gt;&gt; {
         self.0.get_thing()
     }
 
@@ -640,7 +613,10 @@ impl Action for FadeAction {
                 "brightness".to_owned(),
                 input.get("brightness").unwrap().clone(),
             );
-            thing.add_event(Box::new(OverheatedEvent::new(Some(json!(102)))));
+            thing.add_event(Box::new(BaseEvent::new(
+                "overheated".to_owned(),
+                Some(json!(102)),
+            )));
 
             thing.finish_action(name, id);
         });
@@ -660,10 +636,10 @@ struct Generator;
 impl ActionGenerator for Generator {
     fn generate(
         &amp;self,
-        thing: Weak&lt;RwLock&lt;Box&lt;Thing&gt;&gt;&gt;,
+        thing: Weak&lt;RwLock&lt;Box&lt;dyn Thing&gt;&gt;&gt;,
         name: String,
         input: Option&lt;&amp;serde_json::Value&gt;,
-    ) -&gt; Option&lt;Box&lt;Action&gt;&gt; {
+    ) -&gt; Option&lt;Box&lt;dyn Action&gt;&gt; {
         let input = match input {
             Some(v) =&gt; match v.as_object() {
                 Some(o) =&gt; Some(o.clone()),
@@ -680,7 +656,7 @@ impl ActionGenerator for Generator {
     }
 }
 
-fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
+fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;dyn Thing + 'static&gt;&gt;&gt; {
     let mut thing = BaseThing::new(
         "urn:dev:ops:my-lamp-1234".to_owned(),
         "My Lamp".to_owned(),
@@ -757,7 +733,8 @@ fn make_thing() -&gt; Arc&lt;RwLock&lt;Box&lt;Thing + 'static&gt;&gt;&gt; {
     Arc::new(RwLock::new(Box::new(thing)))
 }
 
-fn main() {
+#[actix_rt::main]
+async fn main() -&gt; std::io::Result&lt;()&gt; {
     env_logger::init();
     let thing = make_thing();
 
@@ -770,10 +747,8 @@ fn main() {
         None,
         Box::new(Generator),
         None,
-        None,
     );
-    server.create();
-    server.start();
+    server.start(None).await
 }</code></pre>
               </section>
               <section id="example-arduino">
