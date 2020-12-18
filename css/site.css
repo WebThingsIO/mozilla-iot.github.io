@@ -35,6 +35,18 @@
     src: url("/fonts/opensans-bold.woff2") format("woff2"), url("/fonts/opensans-bold.woff") format("woff")
 }
 
+#transition {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  padding: 0.5rem;
+}
+
+#transition a {
+  color: #fff;
+}
+
 #wordmark {
   background-image: url('/images/mozilla_iot_wordmark.svg');
   background-size: 161px, 32px;
